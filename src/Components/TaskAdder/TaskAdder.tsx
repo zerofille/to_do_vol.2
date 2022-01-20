@@ -12,6 +12,11 @@ interface MyFormValues {
 interface IValue {
   value: string
 }
+export enum TaskStatus{
+  Planned,
+  InProgress,
+  Done
+}
 
 export const TaskAdder: React.FC = () => {
 
@@ -24,7 +29,7 @@ export const TaskAdder: React.FC = () => {
           id: Date.now().toString(),
           title: values.title,
           text: values.text,
-          task_status: 'planned'
+          task_status:TaskStatus[0]
         }))
         form.reset()
 

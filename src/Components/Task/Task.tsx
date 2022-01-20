@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { removeTaskRequest } from '../../app/taskSlice';
+import { removeTaskRequest, changeStatusRequest } from '../../app/taskSlice';
+import { TaskStatus } from '../TaskAdder/TaskAdder';
 
 interface ITask {
   id: number
@@ -10,7 +11,7 @@ interface ITask {
 }
 
 function Task(props: ITask) {
-
+  const [task_status, setStatus] = useState(TaskStatus[0])
   const dispatch = useAppDispatch();
 
   const {id} = props;
@@ -19,7 +20,15 @@ function Task(props: ITask) {
       <h3>{props.title}</h3>
       <p>{props.text}</p>
       <p>{props.task_status}</p>
-      <button onClick={()=>dispatch(removeTaskRequest(id))}>delete</button>
+      <button onClick={() => dispatch(removeTaskRequest(id))}>delete</button>
+      <select onChange={(e) => {
+        setStatus(e.target.value)
+        dispatch(changeStatusRequest({id: id, task_status: e.target.value}))
+      }}>
+        <option value={TaskStatus[0]}>planned</option>
+        <option value={TaskStatus[1]}>in progress</option>
+        <option value={TaskStatus[2]}>done</option>
+      </select>
     </div>
   );
 }

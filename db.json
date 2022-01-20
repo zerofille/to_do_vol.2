@@ -1,3 +1,22 @@
 {
-  "tasks": []
+  "tasks": [
+    {
+      "id": "1642690366627",
+      "title": "task",
+      "text": "task text\n",
+      "task_status": "Done"
+    },
+    {
+      "id": "1642690371966",
+      "title": "task",
+      "text": "task text",
+      "task_status": "InProgress"
+    },
+    {
+      "id": "1642690378254",
+      "title": "task",
+      "text": "task text",
+      "task_status": "Planned"
+    }
+  ]
 }

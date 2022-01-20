@@ -10,7 +10,12 @@ interface ITasks {
 export interface taskState {
   isLoading: boolean,
   error: null | object,
-  data: [ITasks]
+  data: [{
+    id: number,
+    title: string,
+    text: string,
+    task_status: string
+  }]
 
 }
 
@@ -51,7 +56,7 @@ export const taskSlice = createSlice({
       state.isLoading = false;
       state.error = actions.payload
     },
-    removeTaskRequest: (state,actions) => {
+    removeTaskRequest: (state, actions) => {
       state.isLoading = true;
     },
     removeTaskSuccess: (state, actions) => {
@@ -60,9 +65,25 @@ export const taskSlice = createSlice({
     },
     removeTaskError: (state, actions) => {
       state.isLoading = false;
-      state.data = state.data;
+      state.error = actions.payload
+    },
+    changeStatusRequest: (state, actions) => {
+      state.isLoading = true;
+    },
+    changeStatusSuccess: (state, actions) => {
+      state.isLoading = false;
+      state.data.find((el) => {
+        if (el.id === actions.payload.id) {
+          el.task_status = actions.payload.task_status
+        }
+      })
+    },
+    changeStatusError: (state, actions) => {
+      state.isLoading = false;
+      state.error = actions.payload
     }
   }
+
 })
 export const {
   getTasksRequest,
@@ -73,7 +94,10 @@ export const {
   createTaskError,
   removeTaskRequest,
   removeTaskError,
-  removeTaskSuccess
+  removeTaskSuccess,
+  changeStatusError,
+  changeStatusRequest,
+  changeStatusSuccess
 
 } = taskSlice.actions
 export default taskSlice.reducer;
