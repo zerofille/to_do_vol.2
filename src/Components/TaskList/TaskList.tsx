@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../app/hooks'
-import { getTasksRequest } from '../app/taskSlice'
+import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import { getTasksRequest } from '../../app/taskSlice'
+import styles  from './styles.module.scss'
 
 interface ITask {
   id: string
@@ -9,7 +10,7 @@ interface ITask {
   status: string
 }
 
-function Tasks() {
+function TaskList() {
   const dispatch = useAppDispatch();
   const tasksArr = useAppSelector((state) => state.tasks.data)
 
@@ -19,9 +20,9 @@ function Tasks() {
 
   return (
     <div>
-      <h1>1</h1>
+
       {tasksArr?.map((elem) => {
-          return <div key={elem.id}>
+          return <div className={styles.taskWrap} key={elem.id}>
             <h3>{elem.title}</h3>
             <p>{elem.text}</p>
             <p>{elem.task_status}</p>
@@ -32,4 +33,4 @@ function Tasks() {
   );
 }
 
-export default Tasks;
+export default TaskList;
