@@ -11,14 +11,15 @@ function* removeTaskSaga(action: any) {
 
   try {
 
-    const response: IId = yield API.removeTask(action.payload);
+    yield API.removeTask(action.payload);
 
-    const {id} = response;
 
-    yield put(removeTaskSuccess(id));
+
+    yield put(removeTaskSuccess(action.payload));
 
   } catch (error) {
     yield put(removeTaskError(error));
+    console.log(error)
 
   }
 }

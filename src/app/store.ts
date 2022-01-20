@@ -8,7 +8,8 @@ export const store = configureStore({
   reducer: {
     tasks: tasksReducer
   },
-  middleware: [sagaMiddleware]
+  middleware: [sagaMiddleware],
+  devTools: true
 })
 sagaMiddleware.run(rootSaga);
 

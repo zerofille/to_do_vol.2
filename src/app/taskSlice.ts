@@ -10,12 +10,12 @@ interface ITasks {
 export interface taskState {
   isLoading: boolean,
   error: null | object,
-  data: [{
+  data: {
     id: number,
     title: string,
     text: string,
     task_status: string
-  }]
+  }[]
 
 }
 
@@ -61,7 +61,7 @@ export const taskSlice = createSlice({
     },
     removeTaskSuccess: (state, actions) => {
       state.isLoading = false;
-      state.data.filter((el) => el.id !== actions.payload.id)
+      state.data = state.data.filter((el) => el.id !== actions.payload.id)
     },
     removeTaskError: (state, actions) => {
       state.isLoading = false;

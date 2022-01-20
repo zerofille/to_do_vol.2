@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { removeTaskRequest, changeStatusRequest } from '../../app/taskSlice';
 import { TaskStatus } from '../TaskAdder/TaskAdder';
+import "./styles.module.sass"
 
 interface ITask {
   id: number
