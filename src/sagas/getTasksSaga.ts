@@ -2,13 +2,23 @@ import { put } from 'redux-saga/effects';
 import * as API from '../api';
 import { getTasksSuccess, getTasksError } from '../app/taskSlice';
 
-function* createVotesSaga(action: any) {
+interface IData {
+  id: number
+  title: string
+  text: string
+  task_status: string
+}
+
+function* getTasksSaga(action: any) {
   try {
-    const response: object = yield API.getTasks();
-    yield put(getTasksSuccess(response));
+    const response: { data: IData[] } = yield API.getTasks();
+    const {data} = response;
+    console.log(data)
+    yield put(getTasksSuccess(data));
 
   } catch (error) {
     yield put(getTasksError(error));
   }
 }
-export default createVotesSaga;
+
+export default getTasksSaga;

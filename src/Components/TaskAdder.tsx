@@ -1,21 +1,40 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
+import { createTaskRequest } from '../app/taskSlice';
+import { useAppDispatch } from '../app/hooks'
+
 
 interface MyFormValues {
-  userInput: string;
+  title: string
+  text: string
 }
 
 export const TaskAdder: React.FC = () => {
-
-
+  const dispatch = useAppDispatch();
   return (
     <div>
-      <Form onSubmit={() => {}}
-            render={() => (
-              <form onSubmit={()=>{}} >
-        <Field name="taskTitle" component="input"/>
-        <Field name="userInput" component="textarea"/>
-                </form>)}
+      <Form onSubmit={(values: MyFormValues, form) => {
+        dispatch(createTaskRequest({
+          id: Date.now().toString(),
+          title: values.title.toString(),
+          text: values.text.toString(),
+          task_status: 'planned'
+        }))
+        form.reset()
+      }}
+
+            render={(props) => {
+              console.log(props)
+              return <form onSubmit={props.handleSubmit}>
+
+                <Field name="title" component="input"/>
+                <Field name="text" component="textarea"/>
+                <button type="submit">
+                  Submit
+                </button>
+              </form>
+            }
+            }
       />
     </div>
   );

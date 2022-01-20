@@ -4,7 +4,7 @@ const httpClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const postTask = async (data:object) => {
+export const postTask = async (data:any) => {
   return await httpClient.post('/tasks', data);
 };
 

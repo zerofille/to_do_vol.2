@@ -1,16 +1,28 @@
 import { createSlice } from '@reduxjs/toolkit'
 
+interface ITasks {
+  id: number,
+  title: string,
+  text: string,
+  task_status: string
+}
+
 export interface taskState {
   isLoading: boolean,
   error: null | object,
-  tasks: Array<object>
+  data: [ITasks]
 
 }
 
 const initialState: taskState = {
   isLoading: false,
   error: null,
-  tasks: []
+  data: [{
+    id: 1,
+    title: '1111',
+    text: 'json-server',
+    task_status: 'done'
+  }]
 }
 
 export const taskSlice = createSlice({
@@ -22,18 +34,18 @@ export const taskSlice = createSlice({
     },
     createTaskSuccess: (state, actions) => {
       state.isLoading = false;
-      state.tasks.push(actions.payload);
+      state.data.push(actions.payload);
     },
     createTaskError: (state, actions) => {
       state.isLoading = false;
       state.error = actions.payload
     },
-    getTasksRequest: (state, actions) => {
+    getTasksRequest: (state) => {
       state.isLoading = true
     },
     getTasksSuccess: (state, actions) => {
       state.isLoading = false;
-      state.tasks.push(actions.payload);
+      state.data = actions.payload;
     },
     getTasksError: (state, actions) => {
       state.isLoading = false;
