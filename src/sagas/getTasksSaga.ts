@@ -13,7 +13,7 @@ function* getTasksSaga(action: any) {
   try {
     const response: { data: IData[] } = yield API.getTasks();
     const {data} = response;
-    console.log(data)
+
     yield put(getTasksSuccess(data));
 
   } catch (error) {

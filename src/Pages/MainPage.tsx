@@ -1,5 +1,5 @@
 import React from 'react';
-import { TaskAdder } from '../Components/TaskAdder';
+import { TaskAdder } from '../Components/TaskAdder/TaskAdder';
 function MainPage() {
   return (
     <div>

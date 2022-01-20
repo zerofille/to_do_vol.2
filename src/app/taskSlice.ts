@@ -50,6 +50,17 @@ export const taskSlice = createSlice({
     getTasksError: (state, actions) => {
       state.isLoading = false;
       state.error = actions.payload
+    },
+    removeTaskRequest: (state,actions) => {
+      state.isLoading = true;
+    },
+    removeTaskSuccess: (state, actions) => {
+      state.isLoading = false;
+      state.data.filter((el) => el.id !== actions.payload.id)
+    },
+    removeTaskError: (state, actions) => {
+      state.isLoading = false;
+      state.data = state.data;
     }
   }
 })
@@ -59,7 +70,10 @@ export const {
   getTasksError,
   createTaskRequest,
   createTaskSuccess,
-  createTaskError
+  createTaskError,
+  removeTaskRequest,
+  removeTaskError,
+  removeTaskSuccess
 
 } = taskSlice.actions
 export default taskSlice.reducer;

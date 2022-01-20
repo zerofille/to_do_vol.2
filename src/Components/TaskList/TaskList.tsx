@@ -1,14 +1,8 @@
 import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { getTasksRequest } from '../../app/taskSlice'
-import styles  from './styles.module.scss'
+import Task from '../Task/Task';
 
-interface ITask {
-  id: string
-  title: string
-  text: string
-  status: string
-}
 
 function TaskList() {
   const dispatch = useAppDispatch();
@@ -16,21 +10,17 @@ function TaskList() {
 
   useEffect(() => {
     dispatch(getTasksRequest())
-  }, [])
+  }, []);
 
-  return (
-    <div>
 
-      {tasksArr?.map((elem) => {
-          return <div className={styles.taskWrap} key={elem.id}>
-            <h3>{elem.title}</h3>
-            <p>{elem.text}</p>
-            <p>{elem.task_status}</p>
-          </div>;
-        }
-      )}
-    </div>
-  );
+  return (<ul>
+    {
+      tasksArr.map((elem) => {
+        return <Task id={elem.id} title={elem.title} text={elem.text} task_status={elem.title}/>
+      })
+    }
+  </ul>)
+
 }
 
 export default TaskList;

@@ -15,7 +15,7 @@ interface IValue {
 
 export const TaskAdder: React.FC = () => {
 
-  // const required = (value: IValue) => (value ? undefined : 'Required')
+  const required = (value: IValue) => (value ? undefined : 'Required')
   const dispatch = useAppDispatch();
   return (
     <div>
@@ -34,7 +34,7 @@ export const TaskAdder: React.FC = () => {
               return <form onSubmit={props.handleSubmit}>
 
                 <Field name="title" component="input"/>
-                {/*{props.errors ? <span>{props.errors.title}</span> : null}*/}
+                {props.errors ? <span>{props.errors.title}</span> : null}
                 <Field name="text" component="textarea"/>
 
                 <h1>{props.error}</h1>

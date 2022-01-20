@@ -1,5 +1,5 @@
-import React,{useEffect} from 'react';
-import Tasks from '../Components/Tasks';
+import React from 'react';
+import TasksList from '../Components/TaskList/TaskList';
 
 function TasksPage() {
 
@@ -7,7 +7,7 @@ function TasksPage() {
   return (
     <div>
 <h1>Tasks here</h1>
-      <Tasks/>
+      <TasksList/>
     </div>
   );
 }
