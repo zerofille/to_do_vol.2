@@ -20,13 +20,14 @@ export const validationSchema = yup.object({
   .required()
 })
 
-// const validate = (schema: typeof validationSchema) => async (values: MyFormValues) => {
-//
-//   try {
-//     await schema.validate(values, {abortEarly: false});
-//   } catch (e) {
-//     return e.inner.reduce((errors, error) => {
-//       return setIn(errors, error.path, error.message);
-//     }, {});
-//   }
-// };
+export const validate = (schema: typeof validationSchema) => async (values: MyFormValues) => {
+
+  try {
+    await schema.validate(values, {abortEarly: false});
+  } catch (e) {
+    // @ts-ignore
+    return e.inner.reduce((errors, error) => {
+      return setIn(errors, error.path, error.message);
+    }, {});
+  }
+};
