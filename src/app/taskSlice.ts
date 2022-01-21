@@ -61,7 +61,9 @@ export const taskSlice = createSlice({
     },
     removeTaskSuccess: (state, actions) => {
       state.isLoading = false;
-      state.data = state.data.filter((el) => el.id !== actions.payload.id)
+      if (actions.payload.status === 200) {
+        state.data = state.data.filter((el) => el.id != actions.payload.id)
+      }
     },
     removeTaskError: (state, actions) => {
       state.isLoading = false;

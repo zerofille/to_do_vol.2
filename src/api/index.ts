@@ -16,7 +16,10 @@ export const getTasks = async () => {
 
 export const removeTask = async (data: any) => {
 
-  return await httpClient.delete(`/tasks/${data}`, data)
+
+  return await httpClient.delete(`/tasks/${data}`)
+
+
 }
 
 export const changeStatus = async (data: any) => {

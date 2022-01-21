@@ -3,7 +3,8 @@ import * as API from '../api';
 import { removeTaskSuccess, removeTaskError } from '../app/taskSlice';
 
 interface IId {
-  id: number
+  id: number;
+  status: number
 
 }
 
@@ -11,15 +12,13 @@ function* removeTaskSaga(action: any) {
 
   try {
 
-    yield API.removeTask(action.payload);
-
-
-
-    yield put(removeTaskSuccess(action.payload));
+    const response: IId = yield API.removeTask(action.payload);
+    const {status, id} = response
+    yield put(removeTaskSuccess({status, id}));
 
   } catch (error) {
     yield put(removeTaskError(error));
-    console.log(error)
+
 
   }
 }
