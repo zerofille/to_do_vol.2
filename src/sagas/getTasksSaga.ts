@@ -13,12 +13,9 @@ function* getTasksSaga(action: any) {
   try {
     const response: { data: IData[] } = yield API.getTasks();
     const {data} = response;
-
     yield put(getTasksSuccess(data));
-
   } catch (error) {
     yield put(getTasksError(error));
   }
 }
-
 export default getTasksSaga;

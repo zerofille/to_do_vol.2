@@ -13,9 +13,7 @@ function* createTaskSaga(action: any) {
   try {
     const response: { data: IData[] } = yield API.postTask(action.payload);
     const {data} = response;
-
     yield put(createTaskSuccess(data));
-
   } catch (error) {
     yield put(createTaskError(error));
   }

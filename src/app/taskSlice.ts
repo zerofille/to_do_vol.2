@@ -1,12 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit'
-
-interface ITasks {
-  id: number,
-  title: string,
-  text: string,
-  task_status: string
-}
-
 export interface taskState {
   isLoading: boolean,
   error: null | object,
@@ -16,9 +8,7 @@ export interface taskState {
     text: string,
     task_status: string
   }[]
-
 }
-
 const initialState: taskState = {
   isLoading: false,
   error: null,

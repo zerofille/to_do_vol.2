@@ -16,14 +16,16 @@ function TaskList() {
   return (
 
     <ul>
-    {
-      tasksArr.map((elem) => {
-        return <Task id={elem.id} title={elem.title} text={elem.text} task_status={elem.task_status}/>
-      })
-    }
-  </ul>
+      {
+        tasksArr.length != 0 ?
+          tasksArr.map((elem) => {
+            return <Task id={elem.id} title={elem.title} text={elem.text} task_status={elem.task_status}/>
+          })
+          : <h1>no tasks yet</h1>
+      }
+    </ul>
 
-)
+  )
 }
 
 export default TaskList;

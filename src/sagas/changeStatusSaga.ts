@@ -12,9 +12,7 @@ function* changeStatusSaga(action: any) {
   try {
     const response: { data: IData[] } = yield API.changeStatus(action.payload);
     const {data} = response;
-
     yield put(changeStatusSuccess(data));
-
   } catch (error) {
     yield put(changeStatusError(error));
   }

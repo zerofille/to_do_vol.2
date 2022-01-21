@@ -10,7 +10,5 @@ function* rootSaga() {
   yield takeLatest(getTasksRequest.toString(), getTasksSaga);
   yield takeLatest(removeTaskRequest.toString(), removeTaskSaga)
   yield takeLatest(changeStatusRequest.toString(), changeStatusSaga)
-
 }
-
 export default rootSaga;
