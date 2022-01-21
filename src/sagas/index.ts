@@ -12,3 +12,4 @@ function* rootSaga() {
   yield takeLatest(changeStatusRequest.toString(), changeStatusSaga)
 }
 export default rootSaga;
+// create async thunk enum

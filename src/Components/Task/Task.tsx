@@ -25,25 +25,27 @@ function Task(props: ITask) {
   const dispatch = useAppDispatch();
 
   return (
-    <div>
+    <div className="taskWrap">
       <h3 className="test">{props.title}</h3>
-      <p>{props.text}</p>
-      <p>{props.task_status}</p>
+      <div className="taskContent">
+        <p>{props.text}</p>
+        <p>{props.task_status}</p>
 
-      <Stack direction="row" spacing={2}>
-        <Button onClick={() => {
-          dispatch(removeTaskRequest(props.id))
-          dispatch(getTasksRequest())
-        }} variant="contained">
-          <DeleteIcon/>
-        </Button>
+        <Stack direction="row" spacing={2}>
+          <Button onClick={() => {
+            dispatch(removeTaskRequest(props.id))
+            dispatch(getTasksRequest())
+          }} variant="contained">
+            <DeleteIcon/>
+          </Button>
+        </Stack>
 
-      </Stack>
         <FormControl sx={{m: 2, minWidth: 125}} size="small">
-          <InputLabel id="demo-simple-select-autowidth-label">status</InputLabel>
+          <InputLabel id="demo-simple-select-autowidth-label" sx={{fontSize:10}}> change status</InputLabel>
           <Select
-            labelId="demo-simple-select-autowidth-label"
-            id="demo-simple-select-autowidth"
+            sx={{height: 30}}
+            // labelId="demo-simple-select-autowidth-label"
+            // id="demo-simple-select-autowidth"
             onChange={(e: any) => {
               setStatus(e.target.value)
               dispatch(changeStatusRequest({id: props.id, task_status: e.target.value}))
@@ -57,7 +59,7 @@ function Task(props: ITask) {
             <MenuItem value={TaskStatus[2]}>done</MenuItem>
           </Select>
         </FormControl>
-
+      </div>
 
     </div>
   );
