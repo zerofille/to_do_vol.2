@@ -7,7 +7,7 @@ import { IData } from '../../app/getTasks';
 
 function TaskList() {
   const dispatch = useAppDispatch();
-  const tasksArr = useAppSelector((state:taskState) => state.task.data)
+  const tasksArr = useAppSelector((state:taskState) => state.data)
 console.log(tasksArr)
   useEffect(() => {
     dispatch(getTask())

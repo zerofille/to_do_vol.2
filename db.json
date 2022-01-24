@@ -23,6 +23,12 @@
       "title": "http://localhost:3001/#/mytodos",
       "text": "vvv",
       "task_status": "planned"
+    },
+    {
+      "id": "1643019043050",
+      "title": "http://localhost:3001/#/mytodos",
+      "text": "added task",
+      "task_status": "newly added task"
     }
   ]
 }
