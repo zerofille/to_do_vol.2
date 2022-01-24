@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { removeTaskRequest, changeStatusRequest, getTasksRequest } from '../../app/taskSlice';
-import { TaskStatus } from '../TaskAdder/TaskAdder';
+import { TaskStatus } from '../../utils/enums';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
