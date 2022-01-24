@@ -1,7 +1,5 @@
 import React from 'react';
 import { Form, Field } from 'react-final-form';
-// import { createTaskRequest } from '../../app/taskSlice';
-import { createTask } from '../../app/asynkThunk';
 import { useAppDispatch } from '../../app/hooks'
 import { validate } from '../../utils/validation';
 import { validationSchema } from '../../utils/validation';

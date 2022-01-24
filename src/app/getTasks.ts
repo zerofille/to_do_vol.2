@@ -1,10 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as API from '../api';
-import { initialState } from './taskSlice';
-import { TaskStatus } from '../utils/enums';
-import { createTask } from './asynkThunk';
-import {taskState} from './taskSlice';
-
+import { initialState } from './initialState';
 export interface IData {
   id: number,
   title: string,
@@ -12,17 +8,16 @@ export interface IData {
   task_status: string
 }
 
-export const getTask = createAsyncThunk<IData[]>(
+export const getTask = createAsyncThunk(
   'test/getTaskTask',
   async () => {
     const response = await API.getTasks()
-    console.log(response)
     return response.data
 
   }
 )
-const testSlice = createSlice({
-  name: 'test',
+const taskSlice = createSlice({
+  name: 'task',
   initialState,
   reducers: {
     getTaskRequest: (state, action) => {
@@ -38,4 +33,4 @@ const testSlice = createSlice({
   },
 })
 
-export const testReducer = testSlice.reducer
+export const taskReducer = taskSlice.reducer

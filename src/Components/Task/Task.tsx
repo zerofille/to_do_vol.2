@@ -1,6 +1,5 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { removeTaskRequest, changeStatusRequest, getTasksRequest } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -33,22 +32,21 @@ function Task(props: ITask) {
 
         <Stack direction="row" spacing={2}>
           <Button onClick={() => {
-            dispatch(removeTaskRequest(props.id))
-            dispatch(getTasksRequest())
+
           }} variant="contained">
             <DeleteIcon/>
           </Button>
         </Stack>
 
         <FormControl sx={{m: 2, minWidth: 125}} size="small">
-          <InputLabel id="demo-simple-select-autowidth-label" sx={{fontSize:10}}> change status</InputLabel>
+          <InputLabel id="demo-simple-select-autowidth-label" sx={{fontSize: 10}}> change status</InputLabel>
           <Select
             sx={{height: 30}}
             // labelId="demo-simple-select-autowidth-label"
             // id="demo-simple-select-autowidth"
             onChange={(e: any) => {
               setStatus(e.target.value)
-              dispatch(changeStatusRequest({id: props.id, task_status: e.target.value}))
+
             }}
             autoWidth
             label="status"

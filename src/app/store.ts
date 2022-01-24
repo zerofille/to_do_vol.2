@@ -1,18 +1,14 @@
-import { configureStore } from '@reduxjs/toolkit'
-import tasksReducer from './taskSlice'
-import createSagaMiddleware from 'redux-saga';
-import rootSaga from '../sagas';
-import { testReducer } from './getTasks';
+import { configureStore} from '@reduxjs/toolkit'
+import { useDispatch } from 'react-redux'
+import { taskReducer } from './getTasks';
 
-const sagaMiddleware = createSagaMiddleware()
-export const store = configureStore({
-  reducer: {
-    tasks: tasksReducer,
-    test: testReducer
-  },
-  middleware: [sagaMiddleware],
-  devTools: true
+
+const store = configureStore({
+  reducer: taskReducer,
 })
-sagaMiddleware.run(rootSaga);
-export type RootState = ReturnType<typeof store.getState>
+
 export type AppDispatch = typeof store.dispatch
+export const useAppDispatch = () => useDispatch()
+export type RootState = ReturnType<typeof store.getState>
+
+export default store
