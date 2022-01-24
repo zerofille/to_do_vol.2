@@ -20,7 +20,7 @@ interface ITask {
 
 
 function Task(props: ITask) {
-  const [task_status, setStatus] = useState(TaskStatus[0]);
+  const [task_status, setStatus] = useState(TaskStatus.Planned);
 
   const dispatch = useAppDispatch();
 
@@ -54,7 +54,7 @@ function Task(props: ITask) {
             label="status"
             variant="filled"
           >
-            <MenuItem defaultValue={task_status} value={TaskStatus[0]}>planned</MenuItem>
+            <MenuItem defaultValue={task_status} value={TaskStatus.Planned}>planned</MenuItem>
             <MenuItem value={TaskStatus.InProgress}>in progress</MenuItem>
             <MenuItem value={TaskStatus.Done}>done</MenuItem>
           </Select>
