@@ -3,6 +3,7 @@ import { Form, Field } from 'react-final-form';
 import { useAppDispatch } from '../../app/hooks'
 import { validate } from '../../utils/validation';
 import { validationSchema } from '../../utils/validation';
+import { createTask } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 interface MyFormValues {
   title: string
@@ -16,12 +17,12 @@ export const TaskAdder: React.FC = () => {
     <div>
       <Form validate={validate(validationSchema)} onSubmit={(values: MyFormValues, form) => {
 
-        // dispatch(createTask({
-        //   id: Date.now(),
-        //   title: values.title,
-        //   text: values.text,
-        //   task_status: TaskStatus.Planned
-        // }))
+        dispatch(createTask({
+          id: Date.now(),
+          title: values.title,
+          text: values.text,
+          task_status: TaskStatus.Planned
+        }))
         form.reset()
       }}
             render={(props) => {
