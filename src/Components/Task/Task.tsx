@@ -55,8 +55,8 @@ function Task(props: ITask) {
             variant="filled"
           >
             <MenuItem defaultValue={task_status} value={TaskStatus[0]}>planned</MenuItem>
-            <MenuItem value={TaskStatus[1]}>in progress</MenuItem>
-            <MenuItem value={TaskStatus[2]}>done</MenuItem>
+            <MenuItem value={TaskStatus.InProgress}>in progress</MenuItem>
+            <MenuItem value={TaskStatus.Done}>done</MenuItem>
           </Select>
         </FormControl>
       </div>

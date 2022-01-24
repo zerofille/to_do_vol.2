@@ -4,17 +4,12 @@ import { createTaskRequest, getTasksRequest } from '../../app/taskSlice';
 import { useAppDispatch } from '../../app/hooks'
 import { validate } from '../../utils/validation';
 import { validationSchema } from '../../utils/validation';
-
+import { TaskStatus } from '../../utils/enums';
 interface MyFormValues {
   title: string
   text: string
 }
 
-export enum TaskStatus {
-  Planned,
-  InProgress,
-  Done
-}
 
 export const TaskAdder: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -25,7 +20,7 @@ export const TaskAdder: React.FC = () => {
           id: Date.now().toString(),
           title: values.title,
           text: values.text,
-          task_status: TaskStatus[0]
+          task_status: TaskStatus.Planned
         }))
         form.reset()
       }}
