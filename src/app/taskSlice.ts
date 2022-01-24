@@ -9,6 +9,11 @@ export interface IData {
   task_status: string
 }
 
+interface IData2 {
+  id: number
+  task_status: string
+}
+
 export const getTask = createAsyncThunk(
   'task/getTask',
   async () => {
@@ -31,6 +36,13 @@ export const removeTask = createAsyncThunk(
     return response
   }
 )
+export const changeStatus = createAsyncThunk(
+  'task/changeStatus',
+  async (data: IData2) => {
+    const response = await API.changeStatus(data)
+    return response
+  }
+)
 const taskSlice = createSlice({
   name: 'task',
   initialState,
@@ -43,6 +55,9 @@ const taskSlice = createSlice({
     },
     removeTask: (state, action) => {
       state.isLoading = true;
+    },
+    changeStatus: (state, action) => {
+      state.isLoading = true
     }
 
   },
@@ -60,7 +75,15 @@ const taskSlice = createSlice({
       if (action.payload.status === 200) {
         state.data = state.data.filter((el) => el.id !== action.payload.data.id)
       }
-    })
+    });
+    builder.addCase(changeStatus.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data.find((el) => {
+        if (el.id === action.payload.data.id) {
+          el.task_status = action.payload.data.task_status
+        }
+      })
+    });
   },
 })
 
