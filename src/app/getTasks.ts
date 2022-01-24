@@ -25,7 +25,6 @@ const taskSlice = createSlice({
     }
   },
   extraReducers: (builder) => {
-
     builder.addCase(getTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
