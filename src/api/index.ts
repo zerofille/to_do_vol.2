@@ -1,10 +1,10 @@
 import axios from 'axios';
-
+import { IData } from '../app/asynkThunk';
 const httpClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const postTask = async (data: any) => {
+export const postTask = async (data:IData) => {
   return await httpClient.post('/tasks', data);
 };
 

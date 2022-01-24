@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import { getTasksRequest } from '../../app/taskSlice'
 import Task from '../Task/Task';
+import { getTask } from '../../app/getTasks';
 
 
 function TaskList() {
@@ -9,7 +10,7 @@ function TaskList() {
   const tasksArr = useAppSelector((state) => state.tasks.data)
 
   useEffect(() => {
-    dispatch(getTasksRequest())
+    dispatch(getTask())
   }, []);
 
 

@@ -9,7 +9,7 @@ export interface taskState {
     task_status: string
   }[]
 }
-const initialState: taskState = {
+export const initialState: taskState = {
   isLoading: false,
   error: null,
   data: [{
@@ -81,9 +81,9 @@ export const {
   getTasksRequest,
   getTasksSuccess,
   getTasksError,
-  createTaskRequest,
-  createTaskSuccess,
-  createTaskError,
+  // createTaskRequest,
+  // createTaskSuccess,
+  // createTaskError,
   removeTaskRequest,
   removeTaskError,
   removeTaskSuccess,
