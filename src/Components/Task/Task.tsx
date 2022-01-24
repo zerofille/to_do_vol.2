@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
+import { removeTask, getTask } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -32,7 +33,8 @@ function Task(props: ITask) {
 
         <Stack direction="row" spacing={2}>
           <Button onClick={() => {
-
+            dispatch(removeTask(props.id))
+            dispatch(getTask())
           }} variant="contained">
             <DeleteIcon/>
           </Button>
