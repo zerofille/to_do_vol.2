@@ -1,6 +1,6 @@
 export const initialState: taskState = {
   isLoading: false,
-  error: null,
+  error: "",
   data: [{
     id: 1,
     title: '1111',
@@ -10,7 +10,7 @@ export const initialState: taskState = {
 }
 export interface taskState {
   isLoading: boolean,
-  error: null | object,
+  error?: string,
   data: {
     id: number,
     title: string,

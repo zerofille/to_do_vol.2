@@ -32,7 +32,7 @@ export const createTask = createAsyncThunk(
 )
 export const removeTask = createAsyncThunk(
   'task/removeTask',
-  async (data:number) => {
+  async (data: number) => {
     const response = await API.removeTask(data);
     return response
   }
@@ -67,17 +67,29 @@ const taskSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
     });
-    
+    builder.addCase(getTask.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
+
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload
     });
+    builder.addCase(createTask.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    })
     builder.addCase(removeTask.fulfilled, (state, action) => {
       state.isLoading = false;
       if (action.payload.status === 200) {
         state.data = state.data.filter((el) => el.id !== action.payload.data.id)
       }
     });
+    builder.addCase(removeTask.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    })
     builder.addCase(changeStatus.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.find((el) => {
@@ -86,7 +98,10 @@ const taskSlice = createSlice({
         }
       })
     });
+    builder.addCase(changeStatus.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    })
   },
 })
-
 export const taskReducer = taskSlice.reducer
