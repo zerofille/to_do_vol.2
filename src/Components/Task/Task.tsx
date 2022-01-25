@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { removeTask, getTask, changeStatus} from '../../app/taskSlice';
+import { removeTask, getTask, changeStatus } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import InputLabel from '@mui/material/InputLabel';
 import MenuItem from '@mui/material/MenuItem';
@@ -19,21 +19,21 @@ interface ITask {
 }
 
 
-function Task(props: ITask) {
-  const [task_status, setStatus] = useState(TaskStatus.Planned);
+function Task({id, text, title, task_status}:ITask) {
+  const [taskStatus, setStatus] = useState(TaskStatus.Planned);
 
   const dispatch = useAppDispatch();
 
   return (
     <div className="taskWrap">
-      <h3 className="test">{props.title}</h3>
+      <h3 className="test">{title}</h3>
       <div className="taskContent">
-        <p>{props.text}</p>
-        <p>{props.task_status}</p>
+        <p>{text}</p>
+        <p>{task_status}</p>
 
         <Stack direction="row" spacing={2}>
           <Button onClick={() => {
-            dispatch(removeTask(props.id))
+            dispatch(removeTask(id))
             dispatch(getTask())
           }} variant="contained">
             <DeleteIcon/>
@@ -48,7 +48,7 @@ function Task(props: ITask) {
             // id="demo-simple-select-autowidth"
             onChange={(e: any) => {
               setStatus(e.target.value)
-              dispatch(changeStatus({id: props.id, task_status: e.target.value}))
+              dispatch(changeStatus({id: id, task_status: e.target.value}))
             }}
             autoWidth
             label="status"

@@ -5,6 +5,7 @@ import { validate } from '../../utils/validation';
 import { validationSchema } from '../../utils/validation';
 import { createTask } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
+
 interface MyFormValues {
   title: string
   text: string
@@ -25,9 +26,9 @@ export const TaskAdder: React.FC = () => {
         }))
         form.reset()
       }}
-            render={(props) => {
-              console.log(props)
-              return <form onSubmit={props.handleSubmit}>
+            render={({handleSubmit}) => {
+
+              return <form onSubmit={handleSubmit}>
 
                 <Field name="title">
                   {field => (

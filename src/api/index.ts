@@ -5,6 +5,7 @@ const httpClient = axios.create({
 });
 
 export const postTask = async (data:any) => {
+  console.log(data)
   return await httpClient.post('/tasks', data);
 };
 

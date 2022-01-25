@@ -66,6 +66,7 @@ const taskSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
     });
+    
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload
