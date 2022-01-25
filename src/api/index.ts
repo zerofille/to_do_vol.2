@@ -29,6 +29,5 @@ export const removeTask = async (data: number) => {
 };
 
 export const changeStatus = async (data: IChange) => {
-  console.log(data)
   return await httpClient.patch(`/tasks/${data.id}`, data)
 }

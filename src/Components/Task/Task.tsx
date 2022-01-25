@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
 import { removeTask, getTask, changeStatus } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
@@ -10,6 +10,8 @@ import './task.css'
 import Button from '@mui/material/Button';
 import Stack from '@mui/material/Stack';
 import DeleteIcon from '@mui/icons-material/Delete';
+import { SelectChangeEvent } from '@mui/material';
+
 
 interface ITask {
   id: number
@@ -19,10 +21,20 @@ interface ITask {
 }
 
 
-function Task({id, text, title, task_status}:ITask) {
-  const [taskStatus, setStatus] = useState(TaskStatus.Planned);
-
+function Task({id, text, title, task_status}: ITask) {
+  const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
   const dispatch = useAppDispatch();
+
+  const clickHandler = () => {
+    dispatch(removeTask(id))
+    dispatch(getTask())
+  }
+  const changeHandler = (e: SelectChangeEvent<unknown>) => {
+    setStatus((typeof e.target.value === 'string' ? e.target.value : ''))
+    dispatch(changeStatus({
+      id: id, task_status: (typeof e.target.value === 'string' ? e.target.value : '')
+    }))
+  }
 
   return (
     <div className="taskWrap">
@@ -32,10 +44,7 @@ function Task({id, text, title, task_status}:ITask) {
         <p>{task_status}</p>
 
         <Stack direction="row" spacing={2}>
-          <Button onClick={() => {
-            dispatch(removeTask(id))
-            dispatch(getTask())
-          }} variant="contained">
+          <Button onClick={() => clickHandler()} variant="contained">
             <DeleteIcon/>
           </Button>
         </Stack>
@@ -46,10 +55,7 @@ function Task({id, text, title, task_status}:ITask) {
             sx={{height: 30}}
             // labelId="demo-simple-select-autowidth-label"
             // id="demo-simple-select-autowidth"
-            onChange={(e: any) => {
-              setStatus(e.target.value)
-              dispatch(changeStatus({id: id, task_status: e.target.value}))
-            }}
+            onChange={(e) => changeHandler(e)}
             autoWidth
             label="status"
             variant="filled"
