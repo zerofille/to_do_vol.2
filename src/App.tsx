@@ -1,7 +1,7 @@
 import React from 'react';
-import { HashRouter as Router, Route, Link, Switch } from 'react-router-dom'
-import MainPage from './Pages/MainPage';
-import TasksPage from './Pages/TasksPage';
+import { HashRouter as Router, Route, Switch } from 'react-router-dom'
+import MainPage from './Pages/MainPage/MainPage';
+import TasksPage from './Pages/TaskPage/TasksPage';
 
 function App() {
 

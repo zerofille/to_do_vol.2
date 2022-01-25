@@ -13,12 +13,12 @@ function TaskList() {
   }, []);
   return (
     <>
-      <h1>test</h1>
       <ul>
         {
           tasksArr.length !== 0 ?
             tasksArr.map((elem: IData) => {
-              return <Task id={elem.id} title={elem.title} text={elem.text} task_status={elem.task_status}/>
+              return <Task key={elem.id} id={elem.id} title={elem.title} text={elem.text}
+                           task_status={elem.task_status}/>
             })
             : <h1>no tasks yet</h1>
         }
