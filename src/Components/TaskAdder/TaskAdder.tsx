@@ -6,6 +6,9 @@ import { validationSchema } from '../../utils/validation';
 import { createTask } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import { FormApi } from 'final-form';
+import Input from '@mui/material/Input';
+import TextareaAutosize from '@mui/material/TextareaAutosize';
+import Button from '@mui/material/Button';
 
 interface MyFormValues {
   title: string
@@ -34,7 +37,14 @@ export const TaskAdder: React.FC = () => {
           <Field name="title">
             {field => (
               <div className="input-row">
-                <input {...field.input} type="text"/>
+                <Input
+                  {...field.input} type="text"
+                  placeholder="Todo"
+                  inputProps={{
+                    'aria-label': 'Description'
+                  }}
+                  style={{width: '90%'}}/>
+
                 {field.meta.touched && field.meta.error && (
                   <span className="error">{field.meta.error}</span>
                 )}
@@ -44,16 +54,20 @@ export const TaskAdder: React.FC = () => {
           <Field name="text">
             {field => (
               <div className="input-row">
-                <textarea {...field.input}  />
+                <TextareaAutosize
+                  {...field.input}
+                  aria-label="minimum height"
+                  placeholder="Minimum 3 rows"
+                  style={{width: '90%'}}
+                />
+
                 {field.meta.touched && field.meta.error && (
                   <span className="error">{field.meta.error}</span>
                 )}
               </div>
             )}
           </Field>
-          <button type="submit">
-            Submit
-          </button>
+          <Button variant="contained" type={"submit"}>Submit</Button>
         </form>
       }
       }

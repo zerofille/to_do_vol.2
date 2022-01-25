@@ -1,13 +1,13 @@
 import React from 'react';
 import { TaskAdder } from '../Components/TaskAdder/TaskAdder';
-import {Link} from 'react-router-dom';
-import TasksPage from './TasksPage';
-
+import Link from '@mui/material/Link';
 function MainPage() {
   return (
     <div>
       <h1>TO DO</h1>
-      <Link to="/mytodos">Go to TO-DO list</Link>
+      <Link href="/#/mytodos" underline="hover">
+        {'SEE TASKS'}
+      </Link>
       <TaskAdder/>
     </div>
   );
