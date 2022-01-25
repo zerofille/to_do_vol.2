@@ -2,6 +2,7 @@ import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as API from '../api';
 import { initialState } from './initialState';
 
+
 export interface IData {
   id: number,
   title: string,
@@ -31,8 +32,8 @@ export const createTask = createAsyncThunk(
 )
 export const removeTask = createAsyncThunk(
   'task/removeTask',
-  async (id: number) => {
-    const response = await API.removeTask(id);
+  async (data:number) => {
+    const response = await API.removeTask(data);
     return response
   }
 )
