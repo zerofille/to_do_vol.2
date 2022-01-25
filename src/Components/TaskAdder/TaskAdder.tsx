@@ -9,6 +9,7 @@ import { FormApi } from 'final-form';
 import Input from '@mui/material/Input';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
+import './TaskAdder.sass'
 
 interface MyFormValues {
   title: string
@@ -28,50 +29,47 @@ export const TaskAdder: React.FC = () => {
     form.reset()
   }
   return (
-    <div>
+    <div className="mainWrapper">
       <Form validate={validate(validationSchema)} onSubmit={(values, form) => {
         submitHandler(values, form)
       }} render={({handleSubmit}) => {
         return <form onSubmit={handleSubmit}>
+          <div className="formWrap">
+            <Field name="title">
+              {field => (
+                <div className="input-row">
 
-          <Field name="title">
-            {field => (
-              <div className="input-row">
-                <Input
-                  {...field.input} type="text"
-                  placeholder="Todo"
-                  inputProps={{
-                    'aria-label': 'Description'
-                  }}
-                  style={{width: '90%'}}/>
-
-                {field.meta.touched && field.meta.error && (
-                  <span className="error">{field.meta.error}</span>
-                )}
-              </div>
-            )}
-          </Field>
-          <Field name="text">
-            {field => (
-              <div className="input-row">
-                <TextareaAutosize
-                  {...field.input}
-                  aria-label="minimum height"
-                  placeholder="Minimum 3 rows"
-                  style={{width: '90%'}}
-                />
-
-                {field.meta.touched && field.meta.error && (
-                  <span className="error">{field.meta.error}</span>
-                )}
-              </div>
-            )}
-          </Field>
-          <Button variant="contained" type={"submit"}>Submit</Button>
+                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}} color="secondary"
+                         placeholder="to do"/>
+                  {field.meta.touched && field.meta.error && (
+                    <span className="error">{field.meta.error}</span>
+                  )}
+                </div>
+              )}
+            </Field>
+            <Field name="text">
+              {field => (
+                <div className="input-row">
+                  <TextareaAutosize
+                    {...field.input}
+                    aria-label="empty textarea"
+                    placeholder="write down the details"
+                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30}}
+                  />
+                  {field.meta.touched && field.meta.error && (
+                    <span className="error">{field.meta.error}</span>
+                  )}
+                </div>
+              )}
+            </Field>
+            <Button style={{borderColor: 'grey', color: 'grey', marginTop: 20}} variant="outlined" type={'submit'}>ADD
+              TASK</Button>
+          </div>
         </form>
       }
       }
       />
+
     </div>
   );
 }

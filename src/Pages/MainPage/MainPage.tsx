@@ -1,13 +1,13 @@
 import React from 'react';
-import { TaskAdder } from './../../Components/TaskAdder/TaskAdder';
+import { TaskAdder } from '../../Components/TaskAdder/TaskAdder';
 import Link from '@mui/material/Link';
-
+import "./MainPage.sass"
 function MainPage() {
   return (
-    <div>
-      <h1>TO DO</h1>
+    <div className="mainWrap">
+      <h1 className="heading">TO DO</h1>
       <TaskAdder/>
-      <Link href="/#/mytodos" underline="hover">
+      <Link className="link" href="/#/mytodos" underline="hover">
         {'SEE TASKS'}
       </Link>
 
