@@ -10,12 +10,12 @@ import Input from '@mui/material/Input';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import './TaskAdder.sass'
+import { toast } from 'react-toastify';
 
 interface MyFormValues {
   title: string
   text: string
 }
-
 
 export const TaskAdder: React.FC = () => {
   const dispatch = useAppDispatch();
@@ -26,7 +26,8 @@ export const TaskAdder: React.FC = () => {
       text: values.text,
       task_status: TaskStatus.Planned
     }))
-    form.reset()
+
+
   }
   return (
     <div className="mainWrapper">
@@ -39,7 +40,7 @@ export const TaskAdder: React.FC = () => {
               {field => (
                 <div className="input-row">
 
-                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}}  color={"success"}
+                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}} color={'success'}
                          placeholder="to do"/>
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
@@ -55,7 +56,7 @@ export const TaskAdder: React.FC = () => {
                     aria-label="empty textarea"
                     placeholder="write down the details"
 
-                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30, outline:'none'}}
+                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30, outline: 'none'}}
                   />
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
