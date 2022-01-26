@@ -19,6 +19,7 @@ interface MyFormValues {
 
 export const TaskAdder: React.FC = () => {
   const dispatch = useAppDispatch();
+
   const submitHandler = (values: MyFormValues, form: FormApi<MyFormValues, Partial<MyFormValues>>) => {
     dispatch(createTask({
       id: Date.now(),
@@ -26,8 +27,7 @@ export const TaskAdder: React.FC = () => {
       text: values.text,
       task_status: TaskStatus.Planned
     }))
-
-
+    form.restart()
   }
   return (
     <div className="mainWrapper">
@@ -64,7 +64,7 @@ export const TaskAdder: React.FC = () => {
                 </div>
               )}
             </Field>
-            <Button style={{borderColor: 'grey', color: 'grey', marginTop: 20}} variant="outlined" type={'submit'}>ADD
+            <Button  style={{borderColor: 'grey', color: 'grey', marginTop: 20}} variant="outlined" type="submit">ADD
               TASK</Button>
           </div>
         </form>

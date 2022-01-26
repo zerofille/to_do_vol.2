@@ -13,11 +13,11 @@ export const validationSchema = yup.object({
   title: yup
   .string()
   .matches(/^.{3,75}$/, 'You need to write something longer than 2 symbols')
-  .required(),
+  .required("required field"),
   text: yup
   .string()
   .matches(/^.{3,75}$/, 'You need to write something longer than 2 symbols')
-  .required()
+  .required("required field")
 })
 
 export const validate = (schema: typeof validationSchema) => async (values: MyFormValues) => {
