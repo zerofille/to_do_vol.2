@@ -4,8 +4,6 @@ import MainPage from './Pages/MainPage/MainPage';
 import TasksPage from './Pages/TaskPage/TasksPage';
 
 function App() {
-
-
   return (
    <Router>
      <Switch>

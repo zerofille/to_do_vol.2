@@ -10,15 +10,42 @@ import Input from '@mui/material/Input';
 import TextareaAutosize from '@mui/material/TextareaAutosize';
 import Button from '@mui/material/Button';
 import './TaskAdder.sass'
-
+import { createStyles, makeStyles } from '@material-ui/core/styles';
 
 interface MyFormValues {
   title: string
   text: string
 }
 
+const useStyles = makeStyles(theme =>
+  createStyles({
+      muiInput: {
+        width: '500px',
+        marginTop: '30px',
+        backgroundColor: 'inherit',
+        outline: 'none',
+        fontSize: '1rem',
+        padding: '5px',
+        [theme.breakpoints.down(550)]:
+          {width: '450px'}
+        ,
+        [theme.breakpoints.down(480)]:
+          {width: '330px'}
+        ,
+        [theme.breakpoints.down(360)]:
+          {width: '250px'}
+      },
+      btnMui: {
+        borderColor: 'grey',
+        color: 'grey',
+        marginTop: '30px',
+      }
+    }
+  ))
+
 export const TaskAdder: React.FC = () => {
   const dispatch = useAppDispatch();
+  const classes = useStyles();
 
   const submitHandler = (values: MyFormValues, form: FormApi<MyFormValues, Partial<MyFormValues>>) => {
     dispatch(createTask({
@@ -39,8 +66,8 @@ export const TaskAdder: React.FC = () => {
             <Field name="title">
               {field => (
                 <div className="input-row">
-
-                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}} color={'success'}
+                  <Input {...field.input} type="text" className={classes.muiInput}
+                         color={'success'}
                          placeholder="to do"/>
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
@@ -55,8 +82,7 @@ export const TaskAdder: React.FC = () => {
                     {...field.input}
                     aria-label="empty textarea"
                     placeholder="write down the details"
-
-                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30, outline: 'none'}}
+                    className={classes.muiInput}
                   />
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
@@ -64,14 +90,14 @@ export const TaskAdder: React.FC = () => {
                 </div>
               )}
             </Field>
-            <Button  style={{borderColor: 'grey', color: 'grey', marginTop: 20}} variant="outlined" type="submit">ADD
+            <Button sx={{marginTop: '30px'}} variant="outlined" color={'inherit'}
+                    type="submit">ADD
               TASK</Button>
           </div>
         </form>
       }
       }
       />
-
     </div>
   );
 }

@@ -22,37 +22,34 @@ interface ITask {
 }
 
 const useStyles = makeStyles(theme =>
-  createStyles({
-    smallRadioButton: {
-      '& svg': {
-        width: '0.5em',
-        height: '0.5em',
-        margin: '-5px',
-        color: '#555F54'
-      },
-      [theme.breakpoints.down(850)]: {
-        fontSize: '13px',
-        whiteSpace: 'nowrap'
-      },
-      [theme.breakpoints.down(415)]: {
-        fontSize: '12px',
-        marginBottom: '5px',
-        height: '0.3em',
-        whiteSpace: 'nowrap'
+    createStyles({
+        smallRadioButton: {
+          '& svg': {
+            width: '0.5em',
+            height: '0.5em',
+            margin: '-5px',
+            color: '#555F54'
+          },
+          [theme.breakpoints.down(850)]: {
+            fontSize: '13px',
+            whiteSpace: 'nowrap'
+          },
+          [theme.breakpoints.down(415)]: {
+            fontSize: '12px',
+            marginBottom: '5px',
+            height: '0.3em',
+            whiteSpace: 'nowrap'
+          }
+        },
+        radio: {
+          [theme.breakpoints.down(415)]: {
+            marginTop: '10px'
+          }
+        },
       }
-    },
-    radio: {
-      [theme.breakpoints.down(415)]: {
-      marginTop: '10px'}
-    },
-    binBtn: {
-      [theme.breakpoints.down(415)]: {
-        // height:"2em",
-        // margin:"5px"
-      }
-    }
-  })
-);
+    )
+  )
+;
 
 function Task({id, text, title, task_status}: ITask) {
   const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
@@ -66,7 +63,6 @@ function Task({id, text, title, task_status}: ITask) {
     setStatus(e.target.value)
     dispatch(changeStatus({id: id, task_status: e.target.value}))
   }
-
   return (
     <div className="taskWrap">
       <h3 className="title">Task title: {title}</h3>
@@ -77,23 +73,18 @@ function Task({id, text, title, task_status}: ITask) {
         <div className="textWrap">
           <p className="taskText">{text}</p>
         </div>
-
-
         <div className="deleteStatusWrap">
           <Stack direction="row" spacing={2}>
             <IconButton onClick={() => clickHandler()}>
-              <DeleteIcon className={classes.binBtn}/>
+              <DeleteIcon/>
             </IconButton>
           </Stack>
-
           <FormControl>
-
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               onChange={(e) => changeHandler(e)}
               value={task_status}
               name="radio-buttons-group"
-
             >
               <div className="radioWrap">
                 <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Planned}
@@ -116,7 +107,6 @@ function Task({id, text, title, task_status}: ITask) {
           </FormControl>
         </div>
       </div>
-
     </div>
   );
 }
