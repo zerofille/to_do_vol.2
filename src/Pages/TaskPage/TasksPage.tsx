@@ -6,7 +6,9 @@ import './TaskPage.sass'
 import Button from '@mui/material/Button';
 import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { grey } from '@mui/material/colors';
-import { ToastContainer } from "react-toastify";
+import { ToastContainer } from 'react-toastify';
+import { useAppSelector } from '../../app/hooks'
+
 function TasksPage() {
 
   const theme = createTheme({
@@ -18,6 +20,7 @@ function TasksPage() {
   });
   return (
     <div className="wrapper">
+
       <ToastContainer/>
       <Link className="link" href="/" underline="none">
         <ThemeProvider theme={theme}>

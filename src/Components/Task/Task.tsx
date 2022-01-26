@@ -38,7 +38,7 @@ function Task({id, text, title, task_status}: ITask) {
   const dispatch = useAppDispatch();
   const classes = useStyles();
   const clickHandler = () => {
-    dispatch(removeTask(id))
+    dispatch(removeTask({id,title}))
     dispatch(getTask())
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {

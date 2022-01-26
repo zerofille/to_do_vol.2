@@ -3,7 +3,7 @@ import * as API from '../api';
 import { initialState } from './initialState';
 import { RootState } from './store';
 import { toast } from 'react-toastify';
-
+import { IRemove } from '../api/index'
 
 export interface IData {
   id: number,
@@ -34,7 +34,7 @@ export const createTask = createAsyncThunk(
 )
 export const removeTask = createAsyncThunk(
   'task/removeTask',
-  async (data: number) => {
+  async (data: IRemove) => {
     const response = await API.removeTask(data);
     return response
   }
@@ -73,30 +73,30 @@ const taskSlice = createSlice({
     builder.addCase(getTask.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
-      toast.error("ERROR")
+      toast.error('ERROR')
     });
 
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.push(action.payload)
-      toast.success("Task added")
+      toast.success('Task added')
     });
     builder.addCase(createTask.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
-      toast.error("ERROR")
+      toast.error('ERROR')
     })
     builder.addCase(removeTask.fulfilled, (state, action) => {
       state.isLoading = false;
       if (action.payload.status === 200) {
         state.data = state.data.filter((el) => el.id !== action.payload.data.id)
       }
-      toast.success("Task removed")
+      toast.success(`Task ${action.meta.arg.title} removed`)
     });
     builder.addCase(removeTask.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
-      toast.error("ERROR")
+      toast.error('ERROR')
     })
     builder.addCase(changeStatus.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -105,12 +105,12 @@ const taskSlice = createSlice({
           el.task_status = action.payload.data.task_status
         }
       })
-      toast.success("Status changed")
+      toast.success('Status changed')
     });
     builder.addCase(changeStatus.rejected, (state, action) => {
       state.isLoading = false;
       state.error = action.error;
-      toast.error("ERROR")
+      toast.error('ERROR')
     })
   },
 })

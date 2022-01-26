@@ -11,6 +11,10 @@ interface IChange {
   id: number
   task_status: string
 }
+export interface IRemove{
+  id:number
+  title:string
+}
 
 const httpClient = axios.create({
   baseURL: 'http://localhost:3000',
@@ -24,8 +28,8 @@ export const getTasks = async () => {
   return await httpClient.get('/tasks');
 };
 
-export const removeTask = async (data: number) => {
-  return await httpClient.delete(`/tasks/${data}`)
+export const removeTask = async (data:IRemove) => {
+  return await httpClient.delete(`/tasks/${data.id}`)
 };
 
 export const changeStatus = async (data: IChange) => {
