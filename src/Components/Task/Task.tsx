@@ -11,6 +11,7 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import Typography from '@material-ui/core/Typography';
 
 
 interface ITask {
@@ -28,6 +29,26 @@ const useStyles = makeStyles(theme =>
         height: '0.5em',
         margin: '-5px',
         color: '#555F54'
+      },
+      [theme.breakpoints.down(850)]: {
+        fontSize: '13px',
+        whiteSpace: 'nowrap'
+      },
+      [theme.breakpoints.down(415)]: {
+        fontSize: '12px',
+        marginBottom: '5px',
+        height: '0.3em',
+        whiteSpace: 'nowrap'
+      }
+    },
+    radio: {
+      [theme.breakpoints.down(415)]: {
+      marginTop: '10px'}
+    },
+    binBtn: {
+      [theme.breakpoints.down(415)]: {
+        // height:"2em",
+        // margin:"5px"
       }
     }
   })
@@ -38,7 +59,7 @@ function Task({id, text, title, task_status}: ITask) {
   const dispatch = useAppDispatch();
   const classes = useStyles();
   const clickHandler = () => {
-    dispatch(removeTask({id,title}))
+    dispatch(removeTask({id, title}))
     dispatch(getTask())
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -61,7 +82,7 @@ function Task({id, text, title, task_status}: ITask) {
         <div className="deleteStatusWrap">
           <Stack direction="row" spacing={2}>
             <IconButton onClick={() => clickHandler()}>
-              <DeleteIcon/>
+              <DeleteIcon className={classes.binBtn}/>
             </IconButton>
           </Stack>
 
@@ -75,12 +96,21 @@ function Task({id, text, title, task_status}: ITask) {
 
             >
               <div className="radioWrap">
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Planned} control={<Radio/>}
-                                  label={TaskStatus.Planned}/>
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.InProgress} control={<Radio/>}
-                                  label={TaskStatus.InProgress}/>
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Done} control={<Radio/>}
-                                  label={TaskStatus.Done}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Planned}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.Planned}</Typography>}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.InProgress}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.InProgress}</Typography>}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Done}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.Done}</Typography>}/>
               </div>
             </RadioGroup>
           </FormControl>

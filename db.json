@@ -4,7 +4,7 @@
       "id": 1643198244396,
       "title": "fghjk",
       "text": "fghjk",
-      "task_status": "planned"
+      "task_status": "done"
     },
     {
       "id": 1643200630358,
@@ -17,12 +17,6 @@
       "title": "sdf",
       "text": "cvbn",
       "task_status": "planned"
-    },
-    {
-      "id": 1643201197194,
-      "title": "asdfgh",
-      "text": "dfgh",
-      "task_status": "in progress"
     },
     {
       "id": 1643201273983,

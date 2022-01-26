@@ -24,7 +24,7 @@ function TasksPage() {
       <ToastContainer/>
       <Link className="link" href="/" underline="none">
         <ThemeProvider theme={theme}>
-          <Button sx={{margin: 4}} size="large" variant="outlined">{'ADD TASK'}</Button>
+          <Button sx={{margin: 3}} size="large" variant="outlined">{'ADD TASK'}</Button>
         </ThemeProvider>
       </Link>
       <TasksList/>

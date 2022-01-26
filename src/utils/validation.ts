@@ -12,11 +12,11 @@ interface MyFormValues {
 export const validationSchema = yup.object({
   title: yup
   .string()
-  .matches(/^.{3,75}$/, 'You need to write something longer than 2 symbols')
+  .matches(/^.{3,1000gt}$/, 'You need to write something longer than 2 symbols')
   .required("required field"),
   text: yup
   .string()
-  .matches(/^.{3,75}$/, 'You need to write something longer than 2 symbols')
+  .matches(/^.{3,1000}$/, 'You need to write something longer than 2 symbols')
   .required("required field")
 })
 
