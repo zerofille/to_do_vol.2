@@ -1,6 +1,6 @@
-export const initialState: taskState = {
+export const initialState:taskState = {
   isLoading: false,
-  error: "",
+  error: undefined,
   data: [{
     id: 1,
     title: '1111',
@@ -8,13 +8,20 @@ export const initialState: taskState = {
     task_status: 'done'
   }]
 }
+
 export interface taskState {
   isLoading: boolean,
-  error?: string,
+  error?: SerializedError,
   data: {
     id: number,
     title: string,
     text: string,
     task_status: string
   }[]
+}
+export interface SerializedError {
+  name?: string
+  message?: string
+  stack?: string
+  code?: string
 }

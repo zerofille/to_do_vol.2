@@ -1,13 +1,12 @@
 import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
-import { taskState } from './../../app/initialState';
 import Task from '../Task/Task';
 import { getTask } from '../../app/taskSlice';
 import { IData } from '../../app/taskSlice';
 
 function TaskList() {
   const dispatch = useAppDispatch();
-  const tasksArr = useAppSelector((state: taskState) => state.data)
+  const tasksArr = useAppSelector((state) => state.task.data)
   useEffect(() => {
     dispatch(getTask())
   }, []);

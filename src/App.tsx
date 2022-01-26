@@ -10,7 +10,7 @@ function App() {
    <Router>
      <Switch>
      <Route  exact path="/" component={MainPage}/>
-     <Route  path="/mytodos" component={TasksPage}/>
+     <Route   path="/mytodos" component={TasksPage}/>
      </Switch>
    </Router>
   );

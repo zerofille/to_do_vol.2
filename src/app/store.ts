@@ -1,12 +1,13 @@
-import { configureStore} from '@reduxjs/toolkit'
+import { configureStore } from '@reduxjs/toolkit'
 import { useDispatch } from 'react-redux'
 import { taskReducer } from './taskSlice';
 
 
-
 const store = configureStore({
-  reducer: taskReducer,
-  devTools:true
+  reducer: {
+    task: taskReducer
+  },
+  devTools: true
 })
 
 export type AppDispatch = typeof store.dispatch

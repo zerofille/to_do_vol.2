@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import * as API from '../api';
 import { initialState } from './initialState';
+import { RootState } from './store';
 
 
 export interface IData {
@@ -69,16 +70,16 @@ const taskSlice = createSlice({
     });
     builder.addCase(getTask.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = action.error;
     });
 
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data = action.payload
+      state.data.push(action.payload)
     });
     builder.addCase(createTask.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = action.error;
     })
     builder.addCase(removeTask.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -88,7 +89,7 @@ const taskSlice = createSlice({
     });
     builder.addCase(removeTask.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = action.error;
     })
     builder.addCase(changeStatus.fulfilled, (state, action) => {
       state.isLoading = false;
@@ -100,8 +101,9 @@ const taskSlice = createSlice({
     });
     builder.addCase(changeStatus.rejected, (state, action) => {
       state.isLoading = false;
-      state.error = action.error.message;
+      state.error = action.error;
     })
   },
 })
 export const taskReducer = taskSlice.reducer
+export const selectCount = (state: RootState) => state.task.data
