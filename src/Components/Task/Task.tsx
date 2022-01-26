@@ -27,7 +27,7 @@ const useStyles = makeStyles(theme =>
         width: '0.5em',
         height: '0.5em',
         margin: '-5px',
-        color: '#DD4A48'
+        color: '#555F54'
       }
     }
   })
@@ -50,7 +50,8 @@ function Task({id, text, title, task_status}: ITask) {
     <div className="taskWrap">
       <h3 className="title">Task title: {title}</h3>
       <div className="statusWrap">
-        <p className="status">current status: <span>{task_status}</span></p></div>
+        <p className="status">current status: {task_status}</p>
+      </div>
       <div className="taskBody">
         <div className="textWrap">
           <p className="taskText">{text}</p>
