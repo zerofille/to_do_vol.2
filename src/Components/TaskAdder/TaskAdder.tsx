@@ -39,7 +39,7 @@ export const TaskAdder: React.FC = () => {
               {field => (
                 <div className="input-row">
 
-                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}} color="secondary"
+                  <Input {...field.input} type="text" sx={{width: 500, marginTop: 3}}  color={"success"}
                          placeholder="to do"/>
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
@@ -54,7 +54,8 @@ export const TaskAdder: React.FC = () => {
                     {...field.input}
                     aria-label="empty textarea"
                     placeholder="write down the details"
-                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30}}
+
+                    style={{width: 500, height: 50, background: 'inherit', marginTop: 30, outline:'none'}}
                   />
                   {field.meta.touched && field.meta.error && (
                     <span className="error">{field.meta.error}</span>
