@@ -1,6 +1,4 @@
 import React, { useState } from 'react';
-import { useAppDispatch } from '../../app/hooks';
-import { removeTask, getTask, changeStatus } from '../../app/taskSlice';
 import './Task.sass'
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -53,15 +51,15 @@ const useStyles = makeStyles(theme =>
 
 function Task({id, text, title, task_status}: ITask) {
   const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
-  const dispatch = useAppDispatch();
+
   const classes = useStyles();
   const clickHandler = () => {
-    dispatch(removeTask({id, title}))
-    dispatch(getTask())
+    // dispatch(removeTask({id, title}))
+    // dispatch(getTask())
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)
-    dispatch(changeStatus({id: id, task_status: e.target.value}))
+    // dispatch(changeStatus({id: id, task_status: e.target.value}))
   }
   return (
     <div className="taskWrap">
