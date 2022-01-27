@@ -7,7 +7,10 @@ const store = configureStore({
   reducer: {
     task: taskReducer
   },
-  devTools: true
+  devTools: true,
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    serializableCheck: false
+  })
 })
 
 export type AppDispatch = typeof store.dispatch
