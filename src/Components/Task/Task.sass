@@ -1,13 +1,14 @@
 %taskWrap
-    display: flex
-    flex-direction: column
-    justify-content: center
-    align-items: center
-    width: 800px
-    margin: 0 auto 20px
-    padding-bottom: 20px
-    border: 1px solid grey
-    border-radius: 10px
+  display: flex
+  flex-direction: column
+  justify-content: center
+  align-items: center
+  width: 800px
+  margin: 0 auto 20px
+  padding-bottom: 20px
+  border: 1px solid grey
+  border-radius: 10px
+
 .taskWrapPlan
   @extend %taskWrap
   background-color: #dcdcb4
@@ -81,41 +82,43 @@
 .css-ahj2mt-MuiTypography-root
   color: grey
 
-@media (max-width: 850px )
-    .taskWrap
-      width: 600px
-    .taskText
-      height: 50px
+@media (max-width: 850px)
+  .taskWrapPlan, .taskWrapProg, .taskWrapDone
+    width: 600px
+  .taskText
+    height: 50px
 
 
 @media (max-width: 635px)
-    .taskWrap
-      width: 480px
-    .taskText
-      font-size: 13px
-      margin-top: 5px
-    .textWrap
-      width: 95%
-      margin: 0 auto
-      height: 50px
-    .radioWrap
-      display: flex
-      flex-direction: row
-    .status
-      margin-bottom: 5px
-    .taskBody
-      flex-direction: column
+  .taskWrapPlan, .taskWrapProg, .taskWrapDone
+    width: 480px
+  .taskText
+    font-size: 13px
+    margin-top: 5px
+  .textWrap
+    width: 95%
+    margin: 0 auto
+    height: 50px
+  .radioWrap
+    display: flex
+    flex-direction: row
+  .status
+    margin-bottom: 5px
+  .taskBody
+    flex-direction: column
+
 @media (max-width: 515px)
-    .taskWrap
-      width: 370px
-      padding: 10px
-    .taskText
-     font-size: 11px
-     margin-top: 3px
-    .textWrap
-     height: 60px
+  .taskWrapPlan, .taskWrapProg, .taskWrapDone
+    width: 370px
+    padding: 10px
+  .taskText
+    font-size: 11px
+    margin-top: 3px
+  .textWrap
+    height: 60px
+
 @media (max-width: 415px)
-  .taskWrap
+  .taskWrapPlan, .taskWrapProg, .taskWrapDone
     width: 350px
     padding: 5px
   .taskText
@@ -128,8 +131,9 @@
     margin: 5px
   .status
     font-size: 12px
+
 @media (max-width: 385px)
-  .taskWrap
+  .taskWrapPlan, .taskWrapProg, .taskWrapDone
     width: 290px
   .textWrap
     width: 280px
