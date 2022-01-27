@@ -11,7 +11,8 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
-
+import Typography from '@material-ui/core/Typography';
+import cx from 'classnames'
 
 interface ITask {
   id: number
@@ -21,33 +22,56 @@ interface ITask {
 }
 
 const useStyles = makeStyles(theme =>
-  createStyles({
-    smallRadioButton: {
-      '& svg': {
-        width: '0.5em',
-        height: '0.5em',
-        margin: '-5px',
-        color: '#555F54'
+    createStyles({
+        smallRadioButton: {
+          '& svg': {
+            width: '0.5em',
+            height: '0.5em',
+            margin: '-5px',
+            color: '#555F54'
+          },
+          [theme.breakpoints.down(850)]: {
+            fontSize: '13px',
+            whiteSpace: 'nowrap'
+          },
+          [theme.breakpoints.down(415)]: {
+            fontSize: '12px',
+            marginBottom: '5px',
+            height: '0.3em',
+            whiteSpace: 'nowrap'
+          }
+        },
+        radio: {
+          [theme.breakpoints.down(415)]: {
+            marginTop: '10px'
+          }
+        },
       }
-    }
-  })
-);
+    )
+  )
+;
 
 function Task({id, text, title, task_status}: ITask) {
   const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
   const dispatch = useAppDispatch();
   const classes = useStyles();
+
+  const classNames = cx({
+    ['taskWrapPlan']: task_status === TaskStatus.Planned,
+    ['taskWrapProg']: task_status === TaskStatus.InProgress,
+    ['taskWrapDone']: task_status === TaskStatus.Done,
+  })
+
   const clickHandler = () => {
-    dispatch(removeTask({id,title}))
+    dispatch(removeTask({id, title}))
     dispatch(getTask())
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)
     dispatch(changeStatus({id: id, task_status: e.target.value}))
   }
-
   return (
-    <div className="taskWrap">
+    <div className={classNames}>
       <h3 className="title">Task title: {title}</h3>
       <div className="statusWrap">
         <p className="status">current status: {task_status}</p>
@@ -56,37 +80,40 @@ function Task({id, text, title, task_status}: ITask) {
         <div className="textWrap">
           <p className="taskText">{text}</p>
         </div>
-
-
         <div className="deleteStatusWrap">
           <Stack direction="row" spacing={2}>
             <IconButton onClick={() => clickHandler()}>
               <DeleteIcon/>
             </IconButton>
           </Stack>
-
           <FormControl>
-
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
               onChange={(e) => changeHandler(e)}
               value={task_status}
               name="radio-buttons-group"
-
             >
               <div className="radioWrap">
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Planned} control={<Radio/>}
-                                  label={TaskStatus.Planned}/>
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.InProgress} control={<Radio/>}
-                                  label={TaskStatus.InProgress}/>
-                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Done} control={<Radio/>}
-                                  label={TaskStatus.Done}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Planned}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.Planned}</Typography>}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.InProgress}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.InProgress}</Typography>}/>
+                <FormControlLabel className={classes.smallRadioButton} value={TaskStatus.Done}
+                                  control={<Radio className={classes.radio}/>}
+                                  label={
+                                    <Typography className={classes.smallRadioButton}>
+                                      {TaskStatus.Done}</Typography>}/>
               </div>
             </RadioGroup>
           </FormControl>
         </div>
       </div>
-
     </div>
   );
 }

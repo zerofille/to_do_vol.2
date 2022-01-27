@@ -8,19 +8,15 @@ import 'react-toastify/dist/ReactToastify.css';
 
 
 function MainPage() {
-
   return (
     <div className="mainWrap">
-
       <h1 className="heading">TO DO</h1>
-      <ToastContainer/>
+      <ToastContainer autoClose={1500}/>
       <TaskAdder/>
       <Link className="link" href="/#/mytodos" underline="hover">
         {'SEE TASKS'}
       </Link>
-
     </div>
   );
 }
-
 export default withRouter(MainPage);
