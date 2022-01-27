@@ -12,7 +12,7 @@ import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import Typography from '@material-ui/core/Typography';
-
+import cx from 'classnames'
 
 interface ITask {
   id: number
@@ -55,6 +55,13 @@ function Task({id, text, title, task_status}: ITask) {
   const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
   const dispatch = useAppDispatch();
   const classes = useStyles();
+
+  const classNames = cx({
+    ['taskWrapPlan']: task_status === TaskStatus.Planned,
+    ['taskWrapProg']: task_status === TaskStatus.InProgress,
+    ['taskWrapDone']: task_status === TaskStatus.Done,
+  })
+
   const clickHandler = () => {
     dispatch(removeTask({id, title}))
     dispatch(getTask())
@@ -64,7 +71,7 @@ function Task({id, text, title, task_status}: ITask) {
     dispatch(changeStatus({id: id, task_status: e.target.value}))
   }
   return (
-    <div className="taskWrap">
+    <div className={classNames}>
       <h3 className="title">Task title: {title}</h3>
       <div className="statusWrap">
         <p className="status">current status: {task_status}</p>

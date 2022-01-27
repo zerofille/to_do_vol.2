@@ -1,16 +1,24 @@
+%taskWrap
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    width: 800px
+    margin: 0 auto 20px
+    padding-bottom: 20px
+    border: 1px solid grey
+    border-radius: 10px
+.taskWrapPlan
+  @extend %taskWrap
+  background-color: #dcdcb4
 
-.taskWrap
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  width: 800px
-  margin: 0 auto
-  margin-bottom: 20px
-  padding-bottom: 20px
-  background-color: inherit
-  border: 1px solid grey
-  border-radius: 10px
+.taskWrapProg
+  @extend %taskWrap
+  background-color: #b7d084
+
+.taskWrapDone
+  @extend %taskWrap
+  background-color: #c7ccc7
 
 .taskContent
   display: flex
