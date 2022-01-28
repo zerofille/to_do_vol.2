@@ -1,4 +1,5 @@
 import { ACTION_TYPES } from './actionTypes';
+import {ITasks} from '../Components/TaskList/TaskList';
 
 const initialState = {
   isLoading: false,
@@ -13,7 +14,7 @@ const initialState = {
 
 interface IAction {
   type: string
-  values: []
+  values: ITasks[]
   err?: string
 }
 

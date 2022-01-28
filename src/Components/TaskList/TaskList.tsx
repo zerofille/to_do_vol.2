@@ -1,12 +1,11 @@
 import React, { useEffect} from 'react';
 import { connect } from 'react-redux';
-import { Dispatch } from 'redux';
 import Task from '../Task/Task';
 import { RootState } from '../../app/store';
 import getTaskThunk from '../../app/thunk';
 import { store } from '../../app/store'
 
-interface ITasks {
+export interface ITasks {
   id: number
   title: string
   text: string
@@ -19,8 +18,6 @@ interface Iprops {
 }
 
 function TaskList({tasks, getTask}: Iprops) {
-
-
   useEffect(() => {
     getTask()
   }, []);
@@ -39,16 +36,13 @@ function TaskList({tasks, getTask}: Iprops) {
     </>
   )
 }
-
-
 const mapStateToProps = (state: RootState) => {
   return {tasks: state.task.data};
 };
-export const dispatchStore = store.dispatch as typeof store.dispatch | Dispatch<any>
-const mapDispatchToProps = () => {
+const mapDispatchToProps = (dispatch:any) => {
   return {
     getTask: () => {
-      dispatchStore(getTaskThunk())
+      dispatch(getTaskThunk())
     }
   };
 };
