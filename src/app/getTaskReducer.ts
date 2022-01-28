@@ -3,7 +3,12 @@ import { ACTION_TYPES } from './actionTypes';
 
 const initialState = {
   isLoading: false,
-  data: [],
+  data: [{
+    id: 3333,
+    title: 'test',
+    text: 'vvhsjs',
+    task_status: 'done'
+  }],
   error: null
 }
 
@@ -17,20 +22,26 @@ function getTaskReducer(state = initialState, action: any) {
       return newState
     }
     case ACTION_TYPES.GET_TASK_SUC: {
-      return {
+
+      const newState = {
         ...state,
         isLoading: false,
-        data: [...state.data,action.payload]
+        data: [...state.data, action.payload]
       }
+      return newState
     }
     case ACTION_TYPES.GET_TASK_ERR: {
-      return {
+
+      const newState = {
         ...state,
         isLoading: false,
         error: action.payload
       }
+      return newState
 
     }
+    default:
+      return state
   }
 }
 
