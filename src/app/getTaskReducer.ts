@@ -26,7 +26,7 @@ function getTaskReducer(state = initialState, action: any) {
       const newState = {
         ...state,
         isLoading: false,
-        data: [...state.data, action.payload]
+        data: [...action.values]
       }
       return newState
     }
@@ -35,7 +35,7 @@ function getTaskReducer(state = initialState, action: any) {
       const newState = {
         ...state,
         isLoading: false,
-        error: action.payload
+        error: action.err
       }
       return newState
 

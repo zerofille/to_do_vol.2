@@ -5,13 +5,13 @@ export const getTaskReq = () => {
     type: ACTION_TYPES.GET_TASK_REQ
   }
 }
-export const getTaskSuc = (values:IValues) => {
+export const getTaskSuc = (values: IValues) => {
   return {
     type: ACTION_TYPES.GET_TASK_SUC,
     values
   }
 }
-export const getTaskErr = (err:any) => {
+export const getTaskErr = (err: any) => {
   return {
     type: ACTION_TYPES.GET_TASK_ERR,
     err
@@ -19,8 +19,8 @@ export const getTaskErr = (err:any) => {
 }
 
 interface IValues {
-  id:number
-  title:string
-  text:string
-  task_status:string
+  id: number
+  title: string
+  text: string
+  task_status: string
 }

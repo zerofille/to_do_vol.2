@@ -7,6 +7,7 @@ const getTaskThunk = () => {
     dispatch(action.getTaskReq());
     API.getTasks()
     .then(res => {
+
       dispatch(action.getTaskSuc(res.data))
     })
     .catch(err => {

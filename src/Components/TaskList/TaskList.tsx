@@ -18,6 +18,7 @@ interface ITasks {
 
 function TaskList(props: any) {
   const {tasks, getTask} = props
+  console.log(tasks)
   useEffect(() => {
     getTask()
   }, []);
