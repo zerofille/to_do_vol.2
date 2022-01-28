@@ -11,7 +11,7 @@ export const getTaskSuc = (values: IValues) => {
     values
   }
 }
-export const getTaskErr = (err: any) => {
+export const getTaskErr = (err: object) => {
   return {
     type: ACTION_TYPES.GET_TASK_ERR,
     err

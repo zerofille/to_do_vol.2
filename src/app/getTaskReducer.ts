@@ -1,6 +1,5 @@
 import { ACTION_TYPES } from './actionTypes';
 
-
 const initialState = {
   isLoading: false,
   data: [{
@@ -12,7 +11,13 @@ const initialState = {
   error: null
 }
 
-function getTaskReducer(state = initialState, action: any) {
+interface IAction {
+  type: string
+  values: []
+  err?: string
+}
+
+function getTaskReducer(state = initialState, action: IAction) {
   switch (action.type) {
     case ACTION_TYPES.GET_TASK_REQ: {
       const newState = {

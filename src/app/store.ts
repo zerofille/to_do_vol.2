@@ -2,7 +2,7 @@ import { createStore, combineReducers, applyMiddleware } from 'redux';
 import thunk from 'redux-thunk';
 import getTaskReducer from './getTaskReducer'
 
-import { composeWithDevTools } from 'redux-devtools-extension';
+
 
 const rootReducer = combineReducers({
   task: getTaskReducer
@@ -11,4 +11,4 @@ const rootReducer = combineReducers({
 
 export type AppDispatch = typeof store.dispatch;
 export type RootState = ReturnType<typeof store.getState>
-export const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+export const store = createStore(rootReducer, applyMiddleware(thunk));

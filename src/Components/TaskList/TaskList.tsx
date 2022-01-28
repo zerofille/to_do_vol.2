@@ -1,24 +1,26 @@
-import React, { useEffect } from 'react';
+import React, { useEffect} from 'react';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import Task from '../Task/Task';
 import { RootState } from '../../app/store';
-import * as action from '../../app/getTaskCreators';
-import * as API from '../../api';
 import getTaskThunk from '../../app/thunk';
+import { store } from '../../app/store'
 
 interface ITasks {
   id: number
   title: string
   text: string
   task_status: string
-
 }
 
+interface Iprops {
+  tasks: ITasks[]
+  getTask: Function
+}
 
-function TaskList(props: any) {
-  const {tasks, getTask} = props
-  console.log(tasks)
+function TaskList({tasks, getTask}: Iprops) {
+
+
   useEffect(() => {
     getTask()
   }, []);
@@ -42,13 +44,12 @@ function TaskList(props: any) {
 const mapStateToProps = (state: RootState) => {
   return {tasks: state.task.data};
 };
-
-const mapDispatchToProps = (dispatch:any) => {
+export const dispatchStore = store.dispatch as typeof store.dispatch | Dispatch<any>
+const mapDispatchToProps = () => {
   return {
     getTask: () => {
-      dispatch(getTaskThunk())
+      dispatchStore(getTaskThunk())
     }
   };
 };
-
 export default connect(mapStateToProps, mapDispatchToProps)(TaskList);
