@@ -20,7 +20,7 @@ function getTaskReducer(state = initialState, action: any) {
       return {
         ...state,
         isLoading: false,
-        data: state.data.push(action.payload)
+        data: [...state.data,action.payload]
       }
     }
     case ACTION_TYPES.GET_TASK_ERR: {
