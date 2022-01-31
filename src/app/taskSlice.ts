@@ -99,11 +99,13 @@ const taskSlice = createSlice({
     })
     builder.addCase(changeStatus.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.data.find((el) => {
+      const mappedState = state.data.map((el) => {
         if (el.id === action.payload.data.id) {
-          el.task_status = action.payload.data.task_status
+          return el.task_status = action.payload.data.task_status
         }
+        return el
       })
+      state.data = [...mappedState];
       toast.success('Status changed')
     });
     builder.addCase(changeStatus.rejected, (state, action) => {
