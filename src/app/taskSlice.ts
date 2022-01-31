@@ -16,15 +16,6 @@ interface IData2 {
   id: number
   task_status: string
 }
-
-export const getTask = createAsyncThunk(
-  'task/getTask',
-  async () => {
-    const response = await API.getTasks()
-    return response.data
-
-  }
-)
 export const createTask = createAsyncThunk(
   'task/createTask',
   async (userData: IData) => {
@@ -50,9 +41,6 @@ const taskSlice = createSlice({
   name: 'task',
   initialState,
   reducers: {
-    getTask: (state, action) => {
-      state.isLoading = true;
-    },
     createTask: (state, action) => {
       state.isLoading = true;
     },
@@ -65,16 +53,6 @@ const taskSlice = createSlice({
 
   },
   extraReducers: (builder) => {
-    builder.addCase(getTask.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    });
-    builder.addCase(getTask.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error;
-      toast.error('ERROR')
-    });
-
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.push(action.payload)
