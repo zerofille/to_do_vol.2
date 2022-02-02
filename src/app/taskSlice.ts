@@ -20,15 +20,16 @@ interface IData2 {
 
 export const getTask = createAsyncThunk(
   'task/getTask',
-  async () => {
+  async function Test(){
     const response = await API.getTasks()
     return response.data
 
   }
+
 )
 export const getFilteredTasks = createAsyncThunk(
   'task/getFilteredTasks',
-  async (filter:any) => {
+  async (filter:string) => {
     const response = await API.getFilteredTasks(filter)
     return response.data
 
@@ -63,6 +64,7 @@ const taskSlice = createSlice({
     builder.addCase(getTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
+
     });
     builder.addCase(getFilteredTasks.fulfilled, (state, action) => {
       state.isLoading = false;

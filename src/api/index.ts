@@ -29,7 +29,7 @@ export const getTasks = async () => {
   return await httpClient.get('/tasks?_sort=id&_order=desc');
 };
 
-export const getFilteredTasks = async (filter:any)=>{
+export const getFilteredTasks = async (filter:string)=>{
   return await httpClient.get(`/tasks?task_status=${filter}`);
 }
 
