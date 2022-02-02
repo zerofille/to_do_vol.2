@@ -1,9 +1,10 @@
-import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, Action, AnyAction, isPending, isRejected } from '@reduxjs/toolkit';
 import * as API from '../api';
 import { initialState } from './initialState';
 import { RootState } from './store';
 import { toast } from 'react-toastify';
 import { IRemove } from '../api/index'
+
 
 export interface IData {
   id: number,
@@ -21,6 +22,14 @@ export const getTask = createAsyncThunk(
   'task/getTask',
   async () => {
     const response = await API.getTasks()
+    return response.data
+
+  }
+)
+export const getFilteredTasks = createAsyncThunk(
+  'task/getFilteredTasks',
+  async (filter:any) => {
+    const response = await API.getFilteredTasks(filter)
     return response.data
 
   }
@@ -49,42 +58,21 @@ export const changeStatus = createAsyncThunk(
 const taskSlice = createSlice({
   name: 'task',
   initialState,
-  reducers: {
-    getTask: (state, action) => {
-      state.isLoading = true;
-    },
-    createTask: (state, action) => {
-      state.isLoading = true;
-    },
-    removeTask: (state, action) => {
-      state.isLoading = true;
-    },
-    changeStatus: (state, action) => {
-      state.isLoading = true
-    }
-
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
     });
-    builder.addCase(getTask.rejected, (state, action) => {
+    builder.addCase(getFilteredTasks.fulfilled, (state, action) => {
       state.isLoading = false;
-      state.error = action.error;
-      toast.error('ERROR')
+      state.data = action.payload;
     });
-
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.push(action.payload)
       toast.success('Task added')
     });
-    builder.addCase(createTask.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error;
-      toast.error('ERROR')
-    })
     builder.addCase(removeTask.fulfilled, (state, action) => {
       state.isLoading = false;
       if (action.payload.status === 200) {
@@ -92,27 +80,28 @@ const taskSlice = createSlice({
       }
       toast.success(`Task ${action.meta.arg.title} removed`)
     });
-    builder.addCase(removeTask.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error;
-      toast.error('ERROR')
-    })
     builder.addCase(changeStatus.fulfilled, (state, action) => {
       state.isLoading = false;
-      const mappedState = state.data.map((el) => {
-        if (el.id === action.payload.data.id) {
-          return el.task_status = action.payload.data.task_status
+      state.data.forEach((el) => {
+          if (el.id === action.payload.data.id) {
+            return el.task_status = action.payload.data.task_status
+          }
+          return el
         }
-        return el
-      })
-      state.data = [...mappedState];
+      )
+      // state.data = [...mappedState];
       toast.success('Status changed')
     });
-    builder.addCase(changeStatus.rejected, (state, action) => {
-      state.isLoading = false;
-      state.error = action.error;
-      toast.error('ERROR')
-    })
+    builder.addMatcher(isPending,
+      (state, action) => {
+        state.isLoading = true;
+      });
+    builder.addMatcher(isRejected,
+      (state, action) => {
+        state.isLoading = false;
+        state.error = action.error;
+        toast.error('ERROR')
+      });
   },
 })
 export const taskReducer = taskSlice.reducer

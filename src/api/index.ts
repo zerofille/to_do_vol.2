@@ -11,9 +11,10 @@ interface IChange {
   id: number
   task_status: string
 }
-export interface IRemove{
-  id:number
-  title:string
+
+export interface IRemove {
+  id: number
+  title: string
 }
 
 const httpClient = axios.create({
@@ -25,10 +26,14 @@ export const postTask = async (data: IPost) => {
 };
 
 export const getTasks = async () => {
-  return await httpClient.get('/tasks');
+  return await httpClient.get('/tasks?_sort=id&_order=desc');
 };
 
-export const removeTask = async (data:IRemove) => {
+export const getFilteredTasks = async (filter:any)=>{
+  return await httpClient.get(`/tasks?task_status=${filter}`);
+}
+
+export const removeTask = async (data: IRemove) => {
   return await httpClient.delete(`/tasks/${data.id}`)
 };
 
