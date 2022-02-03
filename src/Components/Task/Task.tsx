@@ -1,6 +1,6 @@
-import React, { useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { useAppDispatch } from '../../app/hooks';
-import { removeTask, getTask, changeStatus } from '../../app/taskSlice';
+import { removeTaskAction, getTaskAction, changeStatusAction } from '../../app/taskSlice';
 import './Task.sass'
 import IconButton from '@mui/material/IconButton';
 import Stack from '@mui/material/Stack';
@@ -62,14 +62,14 @@ function Task({id, text, title, task_status}: ITask) {
     ['taskWrapDone']: task_status === TaskStatus.Done,
   })
 
-  const clickHandler = () => {
-    dispatch(removeTask({id, title}))
-    dispatch(getTask({_sort: 'id', _order: "desc"}))
-  }
-  const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
+  const clickHandler = useCallback(() => {
+    dispatch(removeTaskAction({id, title}))
+    dispatch(getTaskAction({_sort: 'id', _order: 'desc'}))
+  }, [dispatch, title, id])
+  const changeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)
-    dispatch(changeStatus({id: id, task_status: e.target.value}))
-  }
+    dispatch(changeStatusAction({id: id, task_status: e.target.value}))
+  }, [dispatch, id])
   return (
     <div className={classNames}>
       <h3 className="title">Task title: {title}</h3>
@@ -82,7 +82,7 @@ function Task({id, text, title, task_status}: ITask) {
         </div>
         <div className="deleteStatusWrap">
           <Stack direction="row" spacing={2}>
-            <IconButton onClick={() => clickHandler()}>
+            <IconButton onClick={clickHandler}>
               <DeleteIcon/>
             </IconButton>
           </Stack>

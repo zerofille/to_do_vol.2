@@ -21,20 +21,33 @@ const httpClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
 
-export const postTask = async (data: IPost) => {
-  return await httpClient.post('/tasks', data);
+export const postTask = (data: IPost) => {
+  return httpClient.post('/tasks', data);
 };
-export const getTasks = async (params: object) => {
-  return await httpClient.get('/tasks',
+export const getTasks = (paramsData: any) => {
+  return httpClient.get('/tasks',
     {
-      params
+      params:{...paramsData}
     });
 };
 
-export const removeTask = async (data: IRemove) => {
-  return await httpClient.delete(`/tasks/${data.id}`)
+
+// export const getFilterSortTasks = ({sortValue,task_status, sortDir}: any) => {
+//
+//   return httpClient.get('/tasks',
+//     {
+//       params: {
+//         task_status: task_status,
+//         _sort: sortValue,
+//         _order: sortDir
+//       }
+//     });
+// };
+
+export const removeTask = (data: IRemove) => {
+  return httpClient.delete(`/tasks/${data.id}`)
 };
 
-export const changeStatus = async (data: IChange) => {
-  return await httpClient.patch(`/tasks/${data.id}`, data)
+export const changeStatus = (data: IChange) => {
+  return httpClient.patch(`/tasks/${data.id}`, data)
 }

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import TasksList from './../../Components/TaskList/TaskList';
 import Link from '@mui/material/Link';
 import { withRouter } from 'react-router';
@@ -8,14 +8,18 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { grey } from '@mui/material/colors';
 import { ToastContainer } from 'react-toastify';
 import { useAppDispatch } from '../../app/hooks';
-import { getTask } from '../../app/taskSlice';
+import { getTaskAction, getFilterSortTaskAction } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 
-const icon = require('../../utils/sort (1).png')
-
+interface Istate {
+  task_status: string
+  setTaskStatus: Function
+}
 
 function TasksPage() {
-  const [sort, setSort] = useState('desc')
+  const [sortDir, setSortDir] = useState('desc')
+  const [sortValue, setSortValue] = useState('id')
+  const [task_status, setTaskStatus] = useState()
   const dispatch = useAppDispatch()
   const theme = createTheme({
     palette: {
@@ -24,15 +28,25 @@ function TasksPage() {
       },
     },
   });
-  const clickHandler = () => {
-    setSort(sort === 'desc' ? 'asc' : 'desc')
-  }
-  const changeHandler = (e: React.FormEvent<HTMLSelectElement>) => {
-    dispatch(getTask(e.currentTarget.value ? {task_status: e.currentTarget.value} : {_sort: 'id', _order: sort}))
-  }
+  const clickHandler = useCallback(() => {
+    setSortValue('id')
+    setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
+  }, [sortDir, sortValue])
+  const changeHandler = useCallback((e: React.FormEvent<HTMLSelectElement>) => {
+    setTaskStatus(e.currentTarget.value)
+    dispatch(getTaskAction(e.currentTarget.value ? {task_status: e.currentTarget.value} : {
+      _sort: sortValue,
+      _order: sortDir
+    }))
+  }, [dispatch, sortDir])
+
+  const testClickH = () => {
+
+    dispatch(getFilterSortTaskAction({_sort: sortValue, task_status, _order: sortDir}))
+  };
   useEffect(() => {
-    dispatch(getTask({_sort: 'id', _order: sort}))
-  }, [sort])
+    dispatch(getTaskAction({_sort: sortValue, _order: sortDir, task_status}))
+  }, [sortDir, sortValue, task_status])
   return (
     <div className="wrapper">
       <ToastContainer autoClose={1500}/>
@@ -48,8 +62,22 @@ function TasksPage() {
           <option value={TaskStatus.InProgress}>{TaskStatus.InProgress}</option>
           <option value={TaskStatus.Done}>{TaskStatus.Done}</option>
         </select>
-        <button className="showBtn" onClick={clickHandler}><img src={icon}
-                                                                alt={icon}/>
+        <button className="showBtn" onClick={clickHandler}>
+          sort by id
+
+        </button>
+
+        <button className="showBtn" onClick={() => {
+          setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
+          setSortValue('task_status')
+
+        }}>
+
+          sort by task status
+
+        </button>
+        <button className="showBtn" onClick={testClickH}>
+          test
         </button>
       </div>
       <TasksList/>

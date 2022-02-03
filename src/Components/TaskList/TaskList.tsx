@@ -1,14 +1,14 @@
 import React, { useEffect } from 'react';
 import { useAppSelector, useAppDispatch } from '../../app/hooks'
 import Task from '../Task/Task';
-import { getTask } from '../../app/taskSlice';
+import { getTaskAction } from '../../app/taskSlice';
 import { IData } from '../../app/taskSlice';
 
 function TaskList() {
   const dispatch = useAppDispatch();
   const tasksArr = useAppSelector((state) => state.task.data)
   useEffect(() => {
-    dispatch(getTask({_sort: 'id', _order: "desc"}))
+    dispatch(getTaskAction({_sort: 'id', _order: "desc"}))
   }, []);
   return (
     <>

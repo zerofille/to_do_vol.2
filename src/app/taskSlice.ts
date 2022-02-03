@@ -6,6 +6,7 @@ import { toast } from 'react-toastify';
 import { IRemove } from '../api/index'
 
 
+
 export interface IData {
   id: number,
   title: string,
@@ -18,30 +19,37 @@ interface IData2 {
   task_status: string
 }
 
-export const getTask = createAsyncThunk(
+export const getTaskAction = createAsyncThunk(
   'task/getTask',
-  async function Test(params: object) {
+  async (params: object) => {
     const response = await API.getTasks(params)
     return response.data
 
   }
 )
+export const getFilterSortTaskAction = createAsyncThunk(
+  'task/getFilterSortTask',
+  async (params: any) => {
+    const response = await API.getTasks(params)
+    return response.data
+  }
+)
 
-export const createTask = createAsyncThunk(
+export const createTaskAction = createAsyncThunk(
   'task/createTask',
   async (userData: IData) => {
     const response = await API.postTask(userData);
     return response.data
   }
 )
-export const removeTask = createAsyncThunk(
+export const removeTaskAction = createAsyncThunk(
   'task/removeTask',
   async (data: IRemove) => {
     const response = await API.removeTask(data);
     return response
   }
 )
-export const changeStatus = createAsyncThunk(
+export const changeStatusAction = createAsyncThunk(
   'task/changeStatus',
   async (data: IData2) => {
     const response = await API.changeStatus(data)
@@ -53,24 +61,29 @@ const taskSlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(getTask.fulfilled, (state, action) => {
+    builder.addCase(getTaskAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
 
     });
-    builder.addCase(createTask.fulfilled, (state, action) => {
+    builder.addCase(getFilterSortTaskAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.data = action.payload;
+
+    });
+    builder.addCase(createTaskAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.push(action.payload)
       toast.success('Task added')
     });
-    builder.addCase(removeTask.fulfilled, (state, action) => {
+    builder.addCase(removeTaskAction.fulfilled, (state, action) => {
       state.isLoading = false;
       if (action.payload.status === 200) {
         state.data = state.data.filter((el) => el.id !== action.payload.data.id)
       }
       toast.success(`Task ${action.meta.arg.title} removed`)
     });
-    builder.addCase(changeStatus.fulfilled, (state, action) => {
+    builder.addCase(changeStatusAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.forEach((el) => {
           if (el.id === action.payload.data.id) {
