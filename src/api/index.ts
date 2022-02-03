@@ -27,7 +27,7 @@ export const postTask = async (data: IPost) => {
 export const getTasks = async (params: object) => {
   return await httpClient.get('/tasks',
     {
-      params: params
+      params
     });
 };
 
