@@ -24,14 +24,12 @@ const httpClient = axios.create({
 export const postTask = async (data: IPost) => {
   return await httpClient.post('/tasks', data);
 };
-
-export const getTasks = async () => {
-  return await httpClient.get('/tasks?_sort=id&_order=desc');
+export const getTasks = async (params: object) => {
+  return await httpClient.get('/tasks',
+    {
+      params: params
+    });
 };
-
-export const getFilteredTasks = async (filter:string)=>{
-  return await httpClient.get(`/tasks?task_status=${filter}`);
-}
 
 export const removeTask = async (data: IRemove) => {
   return await httpClient.delete(`/tasks/${data.id}`)

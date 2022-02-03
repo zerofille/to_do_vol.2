@@ -64,7 +64,7 @@ function Task({id, text, title, task_status}: ITask) {
 
   const clickHandler = () => {
     dispatch(removeTask({id, title}))
-    dispatch(getTask())
+    dispatch(getTask({_sort: 'id', _order: "desc"}))
   }
   const changeHandler = (e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)

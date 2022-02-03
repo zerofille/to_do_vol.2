@@ -20,21 +20,13 @@ interface IData2 {
 
 export const getTask = createAsyncThunk(
   'task/getTask',
-  async function Test(){
-    const response = await API.getTasks()
-    return response.data
-
-  }
-
-)
-export const getFilteredTasks = createAsyncThunk(
-  'task/getFilteredTasks',
-  async (filter:string) => {
-    const response = await API.getFilteredTasks(filter)
+  async function Test(params: object) {
+    const response = await API.getTasks(params)
     return response.data
 
   }
 )
+
 export const createTask = createAsyncThunk(
   'task/createTask',
   async (userData: IData) => {
@@ -66,10 +58,6 @@ const taskSlice = createSlice({
       state.data = action.payload;
 
     });
-    builder.addCase(getFilteredTasks.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-    });
     builder.addCase(createTask.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data.push(action.payload)
@@ -91,7 +79,6 @@ const taskSlice = createSlice({
           return el
         }
       )
-      // state.data = [...mappedState];
       toast.success('Status changed')
     });
     builder.addMatcher(isPending,

@@ -8,7 +8,7 @@ function TaskList() {
   const dispatch = useAppDispatch();
   const tasksArr = useAppSelector((state) => state.task.data)
   useEffect(() => {
-    dispatch(getTask())
+    dispatch(getTask({_sort: 'id', _order: "desc"}))
   }, []);
   return (
     <>
