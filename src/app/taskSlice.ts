@@ -6,7 +6,6 @@ import { toast } from 'react-toastify';
 import { IRemove } from '../api/index'
 
 
-
 export interface IData {
   id: number,
   title: string,
@@ -27,14 +26,6 @@ export const getTaskAction = createAsyncThunk(
 
   }
 )
-export const getFilterSortTaskAction = createAsyncThunk(
-  'task/getFilterSortTask',
-  async (params: any) => {
-    const response = await API.getTasks(params)
-    return response.data
-  }
-)
-
 export const createTaskAction = createAsyncThunk(
   'task/createTask',
   async (userData: IData) => {
@@ -62,11 +53,6 @@ const taskSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(getTaskAction.fulfilled, (state, action) => {
-      state.isLoading = false;
-      state.data = action.payload;
-
-    });
-    builder.addCase(getFilterSortTaskAction.fulfilled, (state, action) => {
       state.isLoading = false;
       state.data = action.payload;
 
@@ -107,4 +93,4 @@ const taskSlice = createSlice({
   },
 })
 export const taskReducer = taskSlice.reducer
-export const selectCount = (state: RootState) => state.task.data
+export const state= (state: RootState) => state.task.data

@@ -68,7 +68,7 @@ function Task({id, text, title, task_status}: ITask) {
   }, [dispatch, title, id])
   const changeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)
-    dispatch(changeStatusAction({id: id, task_status: e.target.value}))
+    dispatch(changeStatusAction({id, task_status: e.target.value}))
   }, [dispatch, id])
   return (
     <div className={classNames}>
@@ -89,7 +89,7 @@ function Task({id, text, title, task_status}: ITask) {
           <FormControl>
             <RadioGroup
               aria-labelledby="demo-radio-buttons-group-label"
-              onChange={(e) => changeHandler(e)}
+              onChange={changeHandler}
               value={task_status}
               name="radio-buttons-group"
             >
