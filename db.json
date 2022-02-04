@@ -40,13 +40,7 @@
       "id": 1643960395127,
       "title": "task8",
       "text": "www",
-      "task_status": "done"
-    },
-    {
-      "id": 1643960402103,
-      "title": "task99",
-      "text": "sss",
-      "task_status": "done"
+      "task_status": "in progress"
     }
   ]
 }

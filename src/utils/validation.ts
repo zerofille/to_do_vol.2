@@ -1,5 +1,4 @@
 import * as yup from 'yup';
-import { object, SchemaOf, string } from 'yup';
 import { setIn } from 'final-form';
 
 

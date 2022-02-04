@@ -14,7 +14,7 @@ function TaskList() {
               return <Task key={elem.id} id={elem.id} title={elem.title} text={elem.text}
                            task_status={elem.task_status}/>
             })
-            : <h1>no tasks yet</h1>
+            : <h1>NO TASKS YET</h1>
         }
       </ul>
     </>

@@ -1,9 +1,9 @@
-import { createAsyncThunk, createSlice, Action, AnyAction, isPending, isRejected } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice, isPending, isRejected } from '@reduxjs/toolkit';
 import * as API from '../api';
 import { initialState } from './initialState';
 import { RootState } from './store';
 import { toast } from 'react-toastify';
-import { IRemove } from '../api/index'
+import { IRemove } from '../api'
 
 
 export interface IData {
@@ -12,7 +12,6 @@ export interface IData {
   text: string,
   task_status: string
 }
-
 interface IData2 {
   id: number
   task_status: string
@@ -36,15 +35,15 @@ export const createTaskAction = createAsyncThunk(
 export const removeTaskAction = createAsyncThunk(
   'task/removeTask',
   async (data: IRemove) => {
-    const response = await API.removeTask(data);
-    return response
+   return await API.removeTask(data);
+
   }
 )
 export const changeStatusAction = createAsyncThunk(
   'task/changeStatus',
   async (data: IData2) => {
-    const response = await API.changeStatus(data)
-    return response
+    return await API.changeStatus(data)
+
   }
 )
 const taskSlice = createSlice({
@@ -93,4 +92,4 @@ const taskSlice = createSlice({
   },
 })
 export const taskReducer = taskSlice.reducer
-export const state= (state: RootState) => state.task.data
+export const state = (state: RootState) => state.task.data

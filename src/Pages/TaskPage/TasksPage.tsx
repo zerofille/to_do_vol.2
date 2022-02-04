@@ -16,9 +16,11 @@ function TasksPage() {
   const [sortValue, setSortValue] = useState('id')
   const [task_status, setTaskStatus] = useState<string>()
   const [page, setPage] = useState(1)
-  const taskArr = useAppSelector(state => state.task.data.length)
 
+
+  const taskArr = useAppSelector(state => state.task.data.length)
   const dispatch = useAppDispatch()
+
   const theme = createTheme({
     palette: {
       primary: {
@@ -29,11 +31,11 @@ function TasksPage() {
   const clickHandler = useCallback(() => {
     setSortValue('id')
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
-  }, [sortDir, sortValue])
+  }, [sortDir])
   const sortByStatusHandler = useCallback(() => {
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
     setSortValue('task_status')
-  }, [sortDir, sortValue])
+  }, [sortDir])
   const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTaskStatus(e.currentTarget.value)
   }
@@ -43,7 +45,7 @@ function TasksPage() {
     } else {
       dispatch(getTaskAction({_page: page, _limit: 4, _sort: sortValue, _order: sortDir}))
     }
-  }, [sortDir, sortValue, task_status, page])
+  }, [sortDir, sortValue, task_status, page, dispatch])
   return (
     <div className="wrapper">
       <ToastContainer autoClose={1500}/>
@@ -63,21 +65,16 @@ function TasksPage() {
           sort by id
         </button>
         <button className="showBtn" onClick={sortByStatusHandler}>
-          sort by task status
+          sort by status
         </button>
       </div>
       <TasksList/>
       <div className={'btnWrap'}>
         <button className="pageBtn" onClick={() => {
-          if (page !== 0) {
-            setPage(prevState => prevState - 1)
-          }
+          if (page !== 0) {setPage(prevState => prevState - 1)}
         }}>«
         </button>
-        <button className="pageBtn" onClick={() => {
-          if (taskArr !== 0) {
-            setPage(prevState => prevState + 1)
-          }
+        <button className="pageBtn" onClick={() => {if (taskArr !== 0) {setPage(prevState => prevState + 1)}
         }}>»
         </button>
       </div>
