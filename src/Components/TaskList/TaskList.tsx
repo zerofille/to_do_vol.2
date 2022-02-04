@@ -1,15 +1,10 @@
-import React, { useEffect } from 'react';
-import { useAppSelector, useAppDispatch } from '../../app/hooks'
+import React from 'react';
+import { useAppSelector } from '../../app/hooks'
 import Task from '../Task/Task';
-import { getTaskAction } from '../../app/taskSlice';
 import { IData } from '../../app/taskSlice';
 
 function TaskList() {
-  const dispatch = useAppDispatch();
   const tasksArr = useAppSelector((state) => state.task.data)
-  useEffect(() => {
-    dispatch(getTaskAction({_sort: 'id', _order: "desc"}))
-  }, []);
   return (
     <>
       <ul>

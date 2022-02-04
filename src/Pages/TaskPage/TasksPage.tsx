@@ -8,18 +8,14 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { grey } from '@mui/material/colors';
 import { ToastContainer } from 'react-toastify';
 import { useAppDispatch } from '../../app/hooks';
-import { getTaskAction, getFilterSortTaskAction } from '../../app/taskSlice';
+import { getTaskAction } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 
-interface Istate {
-  task_status: string
-  setTaskStatus: Function
-}
 
 function TasksPage() {
   const [sortDir, setSortDir] = useState('desc')
   const [sortValue, setSortValue] = useState('id')
-  const [task_status, setTaskStatus] = useState()
+  const [task_status, setTaskStatus] = useState<string>()
   const dispatch = useAppDispatch()
   const theme = createTheme({
     palette: {
@@ -32,20 +28,19 @@ function TasksPage() {
     setSortValue('id')
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
   }, [sortDir, sortValue])
-  const changeHandler = useCallback((e: React.FormEvent<HTMLSelectElement>) => {
+  const sortByStatusHandler = useCallback(() => {
+    setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
+    setSortValue('task_status')
+  }, [sortDir, sortValue])
+  const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTaskStatus(e.currentTarget.value)
-    dispatch(getTaskAction(e.currentTarget.value ? {task_status: e.currentTarget.value} : {
-      _sort: sortValue,
-      _order: sortDir
-    }))
-  }, [dispatch, sortDir])
-
-  const testClickH = () => {
-
-    dispatch(getFilterSortTaskAction({_sort: sortValue, task_status, _order: sortDir}))
-  };
+  }
   useEffect(() => {
-    dispatch(getTaskAction({_sort: sortValue, _order: sortDir, task_status}))
+    if (task_status) {
+      dispatch(getTaskAction({_sort: sortValue, _order: sortDir, task_status}))
+    } else {
+      dispatch(getTaskAction({_sort: sortValue, _order: sortDir}))
+    }
   }, [sortDir, sortValue, task_status])
   return (
     <div className="wrapper">
@@ -64,20 +59,9 @@ function TasksPage() {
         </select>
         <button className="showBtn" onClick={clickHandler}>
           sort by id
-
         </button>
-
-        <button className="showBtn" onClick={() => {
-          setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
-          setSortValue('task_status')
-
-        }}>
-
+        <button className="showBtn" onClick={sortByStatusHandler}>
           sort by task status
-
-        </button>
-        <button className="showBtn" onClick={testClickH}>
-          test
         </button>
       </div>
       <TasksList/>

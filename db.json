@@ -16,7 +16,7 @@
       "id": 1643901387765,
       "title": "task3",
       "text": "ddd",
-      "task_status": "in progress"
+      "task_status": "done"
     },
     {
       "id": 1643901393101,
@@ -29,6 +29,24 @@
       "title": "task6",
       "text": "fff",
       "task_status": "in progress"
+    },
+    {
+      "id": 1643960389928,
+      "title": "task 7",
+      "text": "eee",
+      "task_status": "planned"
+    },
+    {
+      "id": 1643960395127,
+      "title": "task8",
+      "text": "www",
+      "task_status": "done"
+    },
+    {
+      "id": 1643960402103,
+      "title": "task99",
+      "text": "sss",
+      "task_status": "done"
     }
   ]
 }

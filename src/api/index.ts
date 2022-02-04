@@ -17,6 +17,12 @@ export interface IRemove {
   title: string
 }
 
+export interface IParams {
+  _sort?: string
+  _order?: string
+  task_status?: string
+}
+
 const httpClient = axios.create({
   baseURL: 'http://localhost:3000',
 });
@@ -24,25 +30,12 @@ const httpClient = axios.create({
 export const postTask = (data: IPost) => {
   return httpClient.post('/tasks', data);
 };
-export const getTasks = (paramsData: any) => {
+export const getTasks = (paramsData: IParams) => {
   return httpClient.get('/tasks',
     {
-      params:{...paramsData}
+      params: paramsData
     });
 };
-
-
-// export const getFilterSortTasks = ({sortValue,task_status, sortDir}: any) => {
-//
-//   return httpClient.get('/tasks',
-//     {
-//       params: {
-//         task_status: task_status,
-//         _sort: sortValue,
-//         _order: sortDir
-//       }
-//     });
-// };
 
 export const removeTask = (data: IRemove) => {
   return httpClient.delete(`/tasks/${data.id}`)
