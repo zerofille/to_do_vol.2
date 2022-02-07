@@ -7,7 +7,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles'
 import { grey } from '@mui/material/colors';
 import { ToastContainer } from 'react-toastify';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { getTaskAction } from '../../app/taskSlice';
+import { getTaskAction, getTaskCountAction } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import { Link } from 'react-router-dom';
 
@@ -17,8 +17,7 @@ function TasksPage() {
   const [task_status, setTaskStatus] = useState<string>()
   const [page, setPage] = useState(1)
 
-
-  const taskArr = useAppSelector(state => state.task.data.length)
+  const taskCount = useAppSelector(state => state.task.taskCount)
   const dispatch = useAppDispatch()
 
   const theme = createTheme({
@@ -28,6 +27,13 @@ function TasksPage() {
       },
     },
   });
+  const nextPageHandler = ()=>{
+    if(taskCount){
+      if (page < Math.round(taskCount/4)) {setPage(prevState => prevState + 1)}}
+  }
+  const prevPageHandler = ()=>{
+    if (page !== 0) {setPage(prevState => prevState - 1)}
+  }
   const clickHandler = useCallback(() => {
     setSortValue('id')
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
@@ -45,7 +51,8 @@ function TasksPage() {
     } else {
       dispatch(getTaskAction({_page: page, _limit: 4, _sort: sortValue, _order: sortDir}))
     }
-  }, [sortDir, sortValue, task_status, page, dispatch])
+    dispatch(getTaskCountAction())
+  }, [page,sortDir, sortValue, task_status, dispatch])
   return (
     <div className="wrapper">
       <ToastContainer autoClose={1500}/>
@@ -70,13 +77,13 @@ function TasksPage() {
       </div>
       <TasksList/>
       <div className={'btnWrap'}>
-        <button className="pageBtn" onClick={() => {
-          if (page !== 0) {setPage(prevState => prevState - 1)}
-        }}>«
+        <button className="pageBtn" onClick={prevPageHandler}>«
         </button>
-        <button className="pageBtn" onClick={() => {if (taskArr !== 0) {setPage(prevState => prevState + 1)}
-        }}>»
+        <button className="pageBtn" onClick={nextPageHandler} >»
         </button>
+        <div>
+
+        </div>
       </div>
     </div>
   );

@@ -25,6 +25,12 @@ export const getTaskAction = createAsyncThunk(
 
   }
 )
+export const getTaskCountAction = createAsyncThunk(
+  'task/getTaskCount',
+  async () => {
+     return await API.getTasksCount()
+  }
+)
 export const createTaskAction = createAsyncThunk(
   'task/createTask',
   async (userData: IData) => {
@@ -55,6 +61,10 @@ const taskSlice = createSlice({
       state.isLoading = false;
       state.data = action.payload;
 
+    });
+    builder.addCase(getTaskCountAction.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.taskCount = action.payload;
     });
     builder.addCase(createTaskAction.fulfilled, (state, action) => {
       state.isLoading = false;

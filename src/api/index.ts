@@ -37,6 +37,12 @@ export const getTasks = (paramsData: IParams) => {
     });
 };
 
+export const getTasksCount = async () => {
+  const res = await httpClient.get('/tasks');
+  return res.data.length
+
+};
+
 export const removeTask = (data: IRemove) => {
   return httpClient.delete(`/tasks/${data.id}`)
 };

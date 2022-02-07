@@ -1,5 +1,6 @@
 export const initialState:taskState = {
   isLoading: false,
+  taskCount:undefined,
   error: undefined,
   data: [{
     id: 1,
@@ -11,6 +12,7 @@ export const initialState:taskState = {
 
 export interface taskState {
   isLoading: boolean,
+  taskCount?:number
   error?: SerializedError,
   data: {
     id: number,
