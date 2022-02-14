@@ -19,6 +19,12 @@ interface ITask {
   title: string
   text: string
   task_status: string
+  stateVar: {
+    page: number
+    sortValue: string
+    sortDir: string
+    task_status: string
+  }
 }
 
 const useStyles = makeStyles(theme =>
@@ -51,7 +57,7 @@ const useStyles = makeStyles(theme =>
   )
 ;
 
-function Task({id, text, title, task_status}: ITask) {
+function Task({id, text, title, task_status, stateVar}: ITask) {
   const [taskStatus, setStatus] = useState<string>(TaskStatus.Planned);
   const dispatch = useAppDispatch();
   const classes = useStyles();
@@ -61,11 +67,17 @@ function Task({id, text, title, task_status}: ITask) {
     ['taskWrapProg']: task_status === TaskStatus.InProgress,
     ['taskWrapDone']: task_status === TaskStatus.Done,
   })
-
-  const clickHandler = useCallback(() => {
+  console.log(stateVar.sortDir)
+  const clickHandler = () => {
     dispatch(removeTaskAction({id, title}))
-    dispatch(getTaskAction({_sort: 'id', _order: 'desc'}))
-  }, [dispatch, title, id])
+    dispatch(getTaskAction({
+      _page: stateVar.page,
+      _limit: 4,
+      _sort: stateVar.sortValue,
+      _order: stateVar.sortDir,
+      task_status: stateVar.task_status
+    }))
+  }
   const changeHandler = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
     setStatus(e.target.value)
     dispatch(changeStatusAction({id, task_status: e.target.value}))

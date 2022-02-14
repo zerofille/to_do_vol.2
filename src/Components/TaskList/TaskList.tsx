@@ -3,7 +3,20 @@ import { useAppSelector } from '../../app/hooks'
 import Task from '../Task/Task';
 import { IData } from '../../app/taskSlice';
 
-function TaskList() {
+
+interface IStatVar {
+
+  stateVar: {
+    page: number
+    sortValue: string
+    sortDir: string
+    task_status: any
+
+  }
+}
+
+function TaskList(props: IStatVar) {
+  console.log(props)
   const tasksArr = useAppSelector((state) => state.task.data)
   return (
     <>
@@ -11,7 +24,7 @@ function TaskList() {
         {
           tasksArr.length !== 0 ?
             tasksArr.map((elem: IData) => {
-              return <Task key={elem.id} id={elem.id} title={elem.title} text={elem.text}
+              return <Task stateVar={props.stateVar} key={elem.id} id={elem.id} title={elem.title} text={elem.text}
                            task_status={elem.task_status}/>
             })
             : <h1>NO TASKS YET</h1>

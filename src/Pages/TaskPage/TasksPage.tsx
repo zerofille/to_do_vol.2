@@ -11,6 +11,7 @@ import { getTaskAction, getTaskCountAction } from '../../app/taskSlice';
 import { TaskStatus } from '../../utils/enums';
 import { Link } from 'react-router-dom';
 
+
 function TasksPage() {
   const [sortDir, setSortDir] = useState('desc')
   const [sortValue, setSortValue] = useState('id')
@@ -19,7 +20,12 @@ function TasksPage() {
 
   const taskCount = useAppSelector(state => state.task.taskCount)
   const dispatch = useAppDispatch()
-
+  const stateVar = {
+    page: page,
+    sortDir: sortDir,
+    sortValue: sortValue,
+    task_status: task_status
+  }
   const theme = createTheme({
     palette: {
       primary: {
@@ -27,12 +33,17 @@ function TasksPage() {
       },
     },
   });
-  const nextPageHandler = ()=>{
-    if(taskCount){
-      if (page < Math.round(taskCount/4)) {setPage(prevState => prevState + 1)}}
+  const nextPageHandler = () => {
+    if (taskCount) {
+      if (page < Math.round(taskCount / 4)) {
+        setPage(prevState => prevState + 1)
+      }
+    }
   }
-  const prevPageHandler = ()=>{
-    if (page !== 0) {setPage(prevState => prevState - 1)}
+  const prevPageHandler = () => {
+    if (page !== 0) {
+      setPage(prevState => prevState - 1)
+    }
   }
   const clickHandler = useCallback(() => {
     setSortValue('id')
@@ -46,6 +57,7 @@ function TasksPage() {
   const changeHandler = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setTaskStatus(e.currentTarget.value)
   }
+
   useEffect(() => {
     if (task_status) {
       dispatch(getTaskAction({_page: page, _limit: 4, _sort: sortValue, _order: sortDir, task_status}))
@@ -53,7 +65,7 @@ function TasksPage() {
       dispatch(getTaskAction({_page: page, _limit: 4, _sort: sortValue, _order: sortDir}))
     }
     dispatch(getTaskCountAction())
-  }, [page,sortDir, sortValue, task_status, dispatch])
+  }, [page, sortDir, sortValue, task_status, dispatch])
   return (
     <div className="wrapper">
       <ToastContainer autoClose={1500}/>
@@ -76,11 +88,11 @@ function TasksPage() {
           sort by status
         </button>
       </div>
-      <TasksList/>
+      <TasksList stateVar={stateVar} />
       <div className={'btnWrap'}>
         <button className="pageBtn" onClick={prevPageHandler}>«
         </button>
-        <button className="pageBtn" onClick={nextPageHandler} >»
+        <button className="pageBtn" onClick={nextPageHandler}>»
         </button>
         <div>
 
