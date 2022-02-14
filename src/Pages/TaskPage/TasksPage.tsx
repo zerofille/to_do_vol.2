@@ -37,6 +37,7 @@ function TasksPage() {
   const clickHandler = useCallback(() => {
     setSortValue('id')
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')
+    dispatch(getTaskAction({_page: page, _limit: 4, _sort: sortValue, _order: sortDir}))
   }, [sortDir])
   const sortByStatusHandler = useCallback(() => {
     setSortDir(sortDir === 'desc' ? 'asc' : 'desc')

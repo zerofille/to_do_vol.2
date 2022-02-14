@@ -25,22 +25,10 @@
       "task_status": "done"
     },
     {
-      "id": 1643988912039,
-      "title": "Task5",
-      "text": "qqq",
-      "task_status": "in progress"
-    },
-    {
       "id": 1643988917839,
       "title": "Task6",
       "text": "qqq",
       "task_status": "planned"
-    },
-    {
-      "id": 1643988923479,
-      "title": "Task7",
-      "text": "qqq",
-      "task_status": "done"
     },
     {
       "id": 1643988931788,
@@ -55,9 +43,9 @@
       "task_status": "planned"
     },
     {
-      "id": 1643995324874,
-      "title": "Пойти в магазин",
-      "text": "ывапрол",
+      "id": 1644241413899,
+      "title": "shopping",
+      "text": "qqq",
       "task_status": "planned"
     }
   ]
